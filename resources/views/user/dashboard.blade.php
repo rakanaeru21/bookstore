@@ -665,9 +665,9 @@
                 </ul>
                 <div class="user-section">
                     <div class="user-info">
-                        <div class="user-avatar">{{ strtoupper(substr($user->Nama_User, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_User)[1] ?? '', 0, 1)) }}</div>
+                        <div class="user-avatar">{{ strtoupper(substr($user->Nama_Lengkap, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_Lengkap)[1] ?? '', 0, 1)) }}</div>
                         <div class="user-details">
-                            <span class="user-name">{{ $user->Nama_User }}</span>
+                            <span class="user-name">{{ $user->Nama_Lengkap }}</span>
                             <span class="user-role">{{ $user->Role }}</span>
                         </div>
                     </div>
@@ -704,7 +704,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Selamat Datang, {{ $user->Nama_User }}!</h1>
+                    <h1>Selamat Datang, {{ $user->Nama_Lengkap }}!</h1>
                     <p>Temukan petualangan baru dalam setiap halaman. Jelajahi koleksi buku pilihan kami yang telah dikurasi khusus untuk Anda.</p>
 
                     <div class="stats-grid">

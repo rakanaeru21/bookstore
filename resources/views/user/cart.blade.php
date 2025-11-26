@@ -502,7 +502,10 @@
                         </div>
 
                         <div class="checkout-actions">
-                            <button class="btn btn-primary" onclick="alert('Fitur checkout akan segera hadir!')"><i class="fas fa-shopping-bag" style="margin-right: 8px;"></i>Proses Checkout</button>
+                            <a href="{{ route('checkout.show') }}" class="btn btn-primary">
+                                <i class="fas fa-shopping-bag" style="margin-right: 8px;"></i>
+                                Proses Checkout
+                            </a>
                             <a href="{{ route('user.dashboard') }}" class="btn btn-secondary">Lanjutkan Belanja</a>
 
                             <form action="{{ route('cart.clear') }}" method="POST" style="margin-top: 12px;">
