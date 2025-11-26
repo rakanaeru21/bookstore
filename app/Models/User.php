@@ -12,15 +12,22 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 't_user';
+    protected $primaryKey = 'id_user';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'Nama_Lengkap',
+        'Username',
+        'Email',
+        'NoHp',
+        'Alamat',
+        'Password',
+        'Role',
     ];
 
     /**
@@ -29,7 +36,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'Password',
         'remember_token',
     ];
 
@@ -42,7 +49,55 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'Password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the password attribute for authentication
+     */
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'id_user';
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Get the password for the user.
+     */
+    public function getPassword()
+    {
+        return $this->Password;
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin()
+    {
+        return $this->Role === 'Admin';
+    }
+
+    /**
+     * Check if user is regular user
+     */
+    public function isUser()
+    {
+        return $this->Role === 'User';
     }
 }
