@@ -194,21 +194,31 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            /* narrower columns to create a carousel-like row of slim cards */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            /* increased gap for better spacing between books */
+            gap: 28px;
         }
 
         .feature-card {
             text-align: center;
-            padding: 40px 30px;
+            /* portrait card: width determines height via aspect-ratio */
+            aspect-ratio: 3/4;
+            padding: 10px 10px 14px;
             border-radius: 12px;
             background: linear-gradient(135deg, #faf8f3 0%, #f0ebe0 100%);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.22s, box-shadow 0.22s;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border: 1px solid rgba(0,0,0,0.04);
+            overflow: hidden;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 34px rgba(0, 0, 0, 0.09);
         }
 
         .feature-icon {
@@ -301,15 +311,26 @@
         }
 
         .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin: 8px 0 6px;
             color: #8b4513;
         }
 
         .feature-card p {
             color: #6b5d4f;
-            line-height: 1.8;
+            line-height: 1.5;
+            font-size: 14px;
+            margin: 0;
         }
+
+    /* cover takes top portion of portrait card */
+    .cover-wrapper { height: 65%; overflow: hidden; border-radius: 8px; margin-bottom: 10px; }
+    .cover-wrapper .cover-img { width:100%; height:100%; object-fit:cover; display:block; }
+        .feature-price { margin-top:10px; color:#8b4513; font-weight:700; font-size:15px; }
+    .no-cover.feature-fallback { background:#eee; color:#888; }
+    .feature-desc { color:#6b5d4f; margin-top:8px; min-height:56px; font-size:13px; display:block; }
+    .overlay .title { font-size:13px; }
+    .overlay .meta { font-size:11px; opacity:0.95; margin-top:4px; font-weight:600; }
 
         /* Book Categories */
         .categories {
@@ -326,24 +347,21 @@
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            /* increased gap for better spacing between category tiles */
+            gap: 24px;
         }
 
         .category-item {
             aspect-ratio: 3/4;
-            border-radius: 12px;
+            border-radius: 10px;
             background: linear-gradient(135deg, #8b4513 0%, #6d3610 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 600;
-            color: white;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.22s, box-shadow 0.22s;
             position: relative;
             overflow: hidden;
+            display: block;
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .category-item::before {
@@ -359,13 +377,17 @@
         }
 
         .category-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.4);
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.25);
         }
 
         .category-item:hover::before {
             opacity: 1;
         }
+
+        .category-item .cover-img { width:100%; height:100%; object-fit:cover; display:block; }
+        .category-item .no-cover { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:600; padding:10px; text-align:center; }
+        .category-item .overlay { position:absolute; bottom:12px; left:12px; right:12px; color:white; text-shadow:0 2px 6px rgba(0,0,0,0.6); font-weight:700; font-size:12px; }
 
         /* CTA Section */
         .cta {
@@ -504,58 +526,30 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2>Why Choose BookHaven?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon icon-collection"></div>
-                    <h3>Vast Collection</h3>
-                    <p>Access over 100,000 books across all genres. From fiction to non-fiction, we have it all.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-personalized"></div>
-                    <h3>Personalized</h3>
-                    <p>Get book recommendations tailored to your reading preferences and history.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-instant"></div>
-                    <h3>Instant Access</h3>
-                    <p>Download books instantly or get them delivered to your doorstep within 24 hours.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-price"></div>
-                    <h3>Best Prices</h3>
-                    <p>Competitive pricing with regular discounts and special offers for members.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-reviews"></div>
-                    <h3>Reviews & Ratings</h3>
-                    <p>Read authentic reviews from fellow book lovers to make informed choices.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon icon-rewards"></div>
-                    <h3>Rewards Program</h3>
-                    <p>Earn points with every purchase and redeem them for exclusive benefits.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- Categories Section -->
     <section class="categories" id="categories">
         <div class="container">
-            <h2>Browse by Category</h2>
+            <h2>Browse Books</h2>
             <div class="category-grid">
-                <div class="category-item">Fiction</div>
-                <div class="category-item">Mystery</div>
-                <div class="category-item">Romance</div>
-                <div class="category-item">Sci-Fi</div>
-                <div class="category-item">Biography</div>
-                <div class="category-item">History</div>
-                <div class="category-item">Self-Help</div>
-                <div class="category-item">Children's</div>
+                @if(isset($books) && $books->count())
+                    @foreach($books as $buku)
+                        <div class="category-item" title="{{ $buku->Judul }}">
+                            @if($buku->Cover)
+                                <img class="cover-img" src="{{ asset('storage/' . $buku->Cover) }}" alt="{{ $buku->Judul }}" />
+                            @else
+                                <div class="no-cover">{{ $buku->Judul }}</div>
+                            @endif
+                            <div class="overlay">
+                                <div class="title">{{ \Illuminate\Support\Str::limit($buku->Judul, 36) }}</div>
+                                <div class="meta">{{ $buku->Pengarang }} &middot; {{ $buku->kategori?->Nama_Kategori ?? '' }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <p>Tidak ada buku untuk ditampilkan.</p>
+                @endif
             </div>
         </div>
     </section>

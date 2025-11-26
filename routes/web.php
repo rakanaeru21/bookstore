@@ -7,9 +7,20 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriController;
 
 // Public routes
+use App\Models\Buku;
+
 Route::get('/', function () {
-    return view('welcome');
+    // Get latest 8 books to show on the public welcome page
+    $books = Buku::with('kategori')->orderBy('id_buku', 'desc')->take(8)->get();
+    return view('welcome', compact('books'));
 });
+
+// Simple cart routes (session-based)
+use App\Http\Controllers\CartController;
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 
 // Authentication routes (guest only)
 Route::middleware('guest')->group(function () {
