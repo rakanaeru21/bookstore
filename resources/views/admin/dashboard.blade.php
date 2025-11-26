@@ -6,6 +6,7 @@
     <title>Admin Dashboard - BookHaven</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|playfair-display:700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -476,8 +477,10 @@
         }
 
         .activity-time::before {
-            content: '🕐';
+            content: '';
             font-size: 12px;
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
         }
 
         /* Real-time notifications */
@@ -950,7 +953,7 @@
 </head>
 <body>
     <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -959,37 +962,25 @@
             <div class="sidebar-subtitle">Admin Panel</div>
         </div>
         <nav class="sidebar-menu">
-            <a href="#" class="menu-item active">
-                <span class="menu-icon">📊</span>
+            <a href="{{ route('admin.dashboard') }}" class="menu-item active">
+                <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">👥</span>
+            <a href="{{ url('/admin/user') }}" class="menu-item">
+                <span class="menu-icon"><i class="fas fa-users"></i></span>
                 <span>Kelola Pengguna</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">📚</span>
+            <a href="{{ url('/admin/buku') }}" class="menu-item">
+                <span class="menu-icon"><i class="fas fa-book"></i></span>
                 <span>Kelola Buku</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">🏷️</span>
+            <a href="{{ url('/admin/kategori') }}" class="menu-item">
+                <span class="menu-icon"><i class="fas fa-tags"></i></span>
                 <span>Kelola Kategori</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">📋</span>
-                <span>Transaksi</span>
-            </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">📈</span>
-                <span>Laporan</span>
-            </a>
-            <a href="#" class="menu-item">
-                <span class="menu-icon">⚙️</span>
-                <span>Pengaturan</span>
-            </a>
-            <a href="/" class="menu-item">
-                <span class="menu-icon">🏠</span>
-                <span>Kembali ke Beranda</span>
+            <a href="{{ url('/admin/pesanan') }}" class="menu-item">
+                <span class="menu-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Kelola Pesanan</span>
             </a>
         </nav>
     </div>
@@ -1033,7 +1024,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-trend trend-up">+12%</div>
-                <div class="stat-icon">👥</div>
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
                 <div class="stat-number"><span class="stat-counter">{{ $totalUsers }}</span></div>
                 <div class="stat-label">Total Pengguna</div>
                 <div class="progress-bar">
@@ -1043,7 +1034,7 @@
 
             <div class="stat-card">
                 <div class="stat-trend trend-up">+5%</div>
-                <div class="stat-icon">🔑</div>
+                <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
                 <div class="stat-number"><span class="stat-counter">{{ $totalAdmins }}</span></div>
                 <div class="stat-label">Total Admin</div>
                 <div class="progress-bar">
@@ -1053,7 +1044,7 @@
 
             <div class="stat-card">
                 <div class="stat-trend trend-up">+28%</div>
-                <div class="stat-icon">📚</div>
+                <div class="stat-icon"><i class="fas fa-book"></i></div>
                 <div class="stat-number"><span class="stat-counter">0</span></div>
                 <div class="stat-label">Total Buku</div>
                 <div class="progress-bar">
@@ -1063,7 +1054,7 @@
 
             <div class="stat-card">
                 <div class="stat-trend trend-down">-3%</div>
-                <div class="stat-icon">📊</div>
+                <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
                 <div class="stat-number"><span class="stat-counter">0</span></div>
                 <div class="stat-label">Total Transaksi</div>
                 <div class="progress-bar">
@@ -1085,70 +1076,13 @@
             <div class="chart-container">
                 <canvas id="activityChart"></canvas>
                 <div class="chart-placeholder" id="chartPlaceholder" style="display: none;">
-                    📈 Chart akan dimuat di sini...
+                    <i class="fas fa-chart-line"></i> Chart akan dimuat di sini...
                 </div>
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <h2 class="section-title">Aksi Cepat</h2>
-            <div class="actions-grid">
-                <a href="#" class="action-btn">
-                    <span class="action-icon">👥</span>
-                    <span>Kelola Pengguna</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <span class="action-icon">📚</span>
-                    <span>Kelola Buku</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <span class="action-icon">🏷️</span>
-                    <span>Kelola Kategori</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <span class="action-icon">📊</span>
-                    <span>Lihat Laporan</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <span class="action-icon">🔧</span>
-                    <span>Pengaturan</span>
-                </a>
-                <a href="/" class="action-btn">
-                    <span class="action-icon">🏠</span>
-                    <span>Kembali ke Beranda</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="recent-activity">
-            <h2 class="section-title">Aktivitas Terbaru</h2>
-
-            <div class="activity-item">
-                <div class="activity-avatar">A</div>
-                <div class="activity-content">
-                    <div class="activity-text">Sistem telah berhasil dimuat</div>
-                    <div class="activity-time">Baru saja</div>
-                </div>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-avatar">🔧</div>
-                <div class="activity-content">
-                    <div class="activity-text">Dashboard admin siap digunakan</div>
-                    <div class="activity-time">Baru saja</div>
-                </div>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-avatar">📊</div>
-                <div class="activity-content">
-                    <div class="activity-text">Database telah terkonfigurasi</div>
-                    <div class="activity-time">Baru saja</div>
-                </div>
-            </div>
-        </div>
     </main>
 </body>
 </html>
+
+
