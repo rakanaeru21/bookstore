@@ -46,6 +46,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('admin.kategori.edit');
         Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->name('admin.kategori.update');
         Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('admin.kategori.destroy');
+
+    // User management routes (admin)
+    Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/admin/user/create', [App\Http\Controllers\UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user', [App\Http\Controllers\UserController::class, 'store'])->name('admin.user.store');
+    Route::get('/admin/user/{user}', [App\Http\Controllers\UserController::class, 'show'])->name('admin.user.show');
+    Route::get('/admin/user/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/admin/user/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('/admin/user/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.user.destroy');
     });
 
     // User routes
