@@ -496,7 +496,7 @@
             body.sidebar-open {
                 margin-left: 0;
             }
-            
+
             .container {
                 padding: 150px 16px 16px 16px;
             }

@@ -222,15 +222,15 @@
         <div class="form-container">
             <form method="POST" action="{{ route('admin.kategori.store') }}">
                 @csrf
-                
+
                 <div class="form-group">
                     <label for="Nama_Kategori" class="form-label">Nama Kategori <span class="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="Nama_Kategori" 
-                        name="Nama_Kategori" 
-                        class="form-input" 
-                        value="{{ old('Nama_Kategori') }}" 
+                    <input
+                        type="text"
+                        id="Nama_Kategori"
+                        name="Nama_Kategori"
+                        class="form-input"
+                        value="{{ old('Nama_Kategori') }}"
                         required
                         placeholder="Masukkan nama kategori (contoh: Fiksi, Non-Fiksi, Sejarah, dll.)"
                         maxlength="255"

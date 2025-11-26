@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     // Admin routes
     Route::middleware(['role:Admin'])->group(function () {
         Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-        
+
         // Book management routes
         Route::get('/admin/buku', [BukuController::class, 'index'])->name('admin.buku.index');
         Route::get('/admin/buku/create', [BukuController::class, 'create'])->name('admin.buku.create');
@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/buku/{buku}/edit', [BukuController::class, 'edit'])->name('admin.buku.edit');
         Route::put('/admin/buku/{buku}', [BukuController::class, 'update'])->name('admin.buku.update');
         Route::delete('/admin/buku/{buku}', [BukuController::class, 'destroy'])->name('admin.buku.destroy');
-        
+
         // Category management routes
         Route::get('/admin/kategori', [KategoriController::class, 'index'])->name('admin.kategori.index');
         Route::get('/admin/kategori/create', [KategoriController::class, 'create'])->name('admin.kategori.create');

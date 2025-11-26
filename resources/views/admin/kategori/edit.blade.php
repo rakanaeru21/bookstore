@@ -471,14 +471,14 @@
                 <form method="POST" action="{{ route('admin.kategori.update', $kategori->id_kategori) }}">
                     @csrf
                     @method('PUT')
-                    
+
                     <div class="form-body">
                         <div class="form-group">
                             <label for="Nama_Kategori" class="form-label">Nama Kategori *</label>
-                            <input 
-                                type="text" 
-                                id="Nama_Kategori" 
-                                name="Nama_Kategori" 
+                            <input
+                                type="text"
+                                id="Nama_Kategori"
+                                name="Nama_Kategori"
                                 class="form-control @error('Nama_Kategori') error @enderror"
                                 value="{{ old('Nama_Kategori', $kategori->Nama_Kategori) }}"
                                 placeholder="Masukkan nama kategori..."

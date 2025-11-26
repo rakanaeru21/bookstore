@@ -73,7 +73,7 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         $kategori = Kategori::where('id_kategori', $id)->firstOrFail();
-        
+
         $request->validate([
             'Nama_Kategori' => 'required|string|max:255|unique:t_kategori,Nama_Kategori,' . $kategori->id_kategori . ',id_kategori',
         ]);
@@ -92,7 +92,7 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::where('id_kategori', $id)->firstOrFail();
-        
+
         // Check if category has books
         if ($kategori->buku()->count() > 0) {
             return redirect()->route('admin.kategori.index')
