@@ -15,12 +15,17 @@ Route::get('/', function () {
     return view('welcome', compact('books'));
 });
 
-// Simple cart routes (session-based)
+// Simple cart routes (session-based) - require authentication
 use App\Http\Controllers\CartController;
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
-Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
+    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
 
 // Authentication routes (guest only)
 Route::middleware('guest')->group(function () {

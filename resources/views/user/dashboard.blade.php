@@ -6,6 +6,7 @@
     <title>Dashboard - BookHaven</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|playfair-display:700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -670,6 +671,16 @@
                             <span class="user-role">{{ $user->Role }}</span>
                         </div>
                     </div>
+                    @php
+                        $cart = session()->get('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'qty'));
+                    @endphp
+                    <a href="{{ route('cart.show') }}" class="btn" style="background: #f59e0b; color: white; margin-right: 8px; position: relative; width: 48px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-shopping-cart" style="font-size: 16px;"></i>
+                        @if($cartCount > 0)
+                            <span style="position: absolute; top: -8px; right: -8px; background: #dc2626; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ $cartCount }}</span>
+                        @endif
+                    </a>
                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                         @csrf
                         <button type="submit" class="btn btn-logout">Keluar</button>
@@ -715,7 +726,7 @@
                     <div class="search-filter-section">
                         <form method="GET" action="{{ route('user.dashboard') }}" class="search-filter-form">
                             <div class="search-input-group">
-                                <div class="search-icon">🔍</div>
+                                <div class="search-icon"><i class="fas fa-search"></i></div>
                                 <input
                                     type="text"
                                     name="search"
@@ -802,18 +813,30 @@
                         <div class="book-meta">
                             <span class="book-author">{{ $book->Pengarang }}</span>
                             <span class="book-category">{{ $book->kategori->Nama_Kategori ?? 'Tidak ada kategori' }}</span>
+                            <span class="book-stock" style="color: {{ $book->Stok > 0 ? ($book->Stok <= 5 ? '#dc2626' : '#16a34a') : '#dc2626' }}; font-weight: 600; font-size: 12px;">
+                                @if($book->Stok > 0)
+                                    Stok: {{ $book->Stok }} {{ $book->Stok <= 5 ? '(Terbatas)' : '' }}
+                                @else
+                                    Habis Stok
+                                @endif
+                            </span>
                         </div>
                         <div class="book-actions">
-                            <form action="{{ route('cart.add') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
-                                <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
-                            </form>
-                            <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
-                                <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
-                            </form>
+                            @if($book->Stok > 0)
+                                <form action="{{ route('cart.add') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                    <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
+                                </form>
+                                <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                    <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
+                                </form>
+                            @else
+                                <button class="btn btn-cart" disabled style="opacity: 0.5; cursor: not-allowed;">Stok Habis</button>
+                                <button class="btn-buy" disabled style="opacity: 0.5; cursor: not-allowed;">Stok Habis</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -854,18 +877,30 @@
                         <div class="book-meta">
                             <span class="book-author">{{ $book->Pengarang }}</span>
                             <span class="book-category">{{ $category->Nama_Kategori }}</span>
+                            <span class="book-stock" style="color: {{ $book->Stok > 0 ? ($book->Stok <= 5 ? '#dc2626' : '#16a34a') : '#dc2626' }}; font-weight: 600; font-size: 12px;">
+                                @if($book->Stok > 0)
+                                    Stok: {{ $book->Stok }} {{ $book->Stok <= 5 ? '(Terbatas)' : '' }}
+                                @else
+                                    Habis Stok
+                                @endif
+                            </span>
                         </div>
                         <div class="book-actions">
-                            <form action="{{ route('cart.add') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
-                                <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
-                            </form>
-                            <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
-                                <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
-                            </form>
+                            @if($book->Stok > 0)
+                                <form action="{{ route('cart.add') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                    <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
+                                </form>
+                                <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                    <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
+                                </form>
+                            @else
+                                <button class="btn btn-cart" disabled style="opacity: 0.5; cursor: not-allowed;">Stok Habis</button>
+                                <button class="btn-buy" disabled style="opacity: 0.5; cursor: not-allowed;">Stok Habis</button>
+                            @endif
                         </div>
                     </div>
                 </div>
