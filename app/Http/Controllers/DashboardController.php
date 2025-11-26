@@ -36,7 +36,7 @@ class DashboardController extends Controller
     /**
      * Dashboard untuk user biasa
      */
-    public function userDashboard()
+    public function userDashboard(Request $request)
     {
         // Debug authentication
         if (!Auth::check()) {
@@ -48,8 +48,66 @@ class DashboardController extends Controller
             return redirect('/login')->with('error', 'Access denied. User only.');
         }
 
+        // Get search parameters
+        $search = $request->get('search');
+        $kategoriFilter = $request->get('kategori');
+        $sortBy = $request->get('sort');
+
+        // Base query for books
+        $booksQuery = \App\Models\Buku::with('kategori');
+
+        // Apply search filter
+        if ($search) {
+            $booksQuery->where(function($query) use ($search) {
+                $query->where('Judul', 'like', '%' . $search . '%')
+                      ->orWhere('Pengarang', 'like', '%' . $search . '%')
+                      ->orWhere('ISBN', 'like', '%' . $search . '%')
+                      ->orWhere('Penerbit', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Apply category filter
+        if ($kategoriFilter) {
+            $booksQuery->where('id_kategori', $kategoriFilter);
+        }
+
+        // Apply sorting
+        switch ($sortBy) {
+            case 'newest':
+                $booksQuery->orderBy('created_at', 'desc');
+                break;
+            case 'oldest':
+                $booksQuery->orderBy('created_at', 'asc');
+                break;
+            case 'price_low':
+                $booksQuery->orderBy('Harga', 'asc');
+                break;
+            case 'price_high':
+                $booksQuery->orderBy('Harga', 'desc');
+                break;
+            case 'title':
+                $booksQuery->orderBy('Judul', 'asc');
+                break;
+            default:
+                $booksQuery->orderBy('id_buku', 'desc');
+        }
+
+        // Get filtered books
+        $filteredBooks = $booksQuery->get();
+
+        // Get all books for stats (unfiltered)
+        $allBooks = \App\Models\Buku::with('kategori')->orderBy('id_buku', 'desc')->get();
+
+        // Get all categories with their books
+        $categories = \App\Models\Kategori::with(['buku' => function($query) {
+            $query->orderBy('id_buku', 'desc');
+        }])->get();
+
         return view('user.dashboard', [
             'user' => $user,
+            'books' => $allBooks,
+            'filteredBooks' => $filteredBooks,
+            'categories' => $categories,
         ]);
     }    /**
      * Redirect berdasarkan role

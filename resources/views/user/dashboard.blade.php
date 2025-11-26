@@ -15,24 +15,28 @@
 
         body {
             font-family: 'Instrument Sans', sans-serif;
-            background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
-            color: #2c2416;
+            background: #fafaf9;
+            color: #1c1917;
             line-height: 1.6;
-            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
         /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
+        header {
+            padding: 20px 0;
+            background: white;
+            border-bottom: 1px solid #e7e5e4;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,403 +44,879 @@
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            color: #8b4513;
-        }
-
-        .user-menu {
+            color: #78350f;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
         }
 
-        .welcome-text {
-            font-weight: 500;
-            color: #2c2416;
-        }
-
-        .role-badge {
-            background: linear-gradient(135deg, #8b4513, #6d3610);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 25px;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(139, 69, 19, 0.3);
-        }
-
-        .logout-btn {
-            color: #dc3545;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 8px 16px;
+        .logo::before {
+            content: "";
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
             border-radius: 6px;
-            border: 1px solid #dc3545;
+            display: inline-block;
         }
 
-        .logout-btn:hover {
-            background: #dc3545;
-            color: white;
-        }
-
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .hero-section {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            color: #2c2416;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .page-subtitle {
-            font-size: 20px;
-            color: #6b5d4f;
-            margin-bottom: 32px;
-        }
-
-        .cta-buttons {
+        .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #57534e;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #78350f;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: #fef3c7;
+            border-radius: 100px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #78350f;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #92400e;
+            font-weight: 500;
         }
 
         .btn {
-            padding: 14px 32px;
+            padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
+            font-weight: 500;
+            transition: all 0.2s;
             border: none;
             cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #8b4513;
-            color: white;
-            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: #6d3610;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #8b4513;
-            border: 2px solid #8b4513;
-        }
-
-        .btn-outline:hover {
-            background: #8b4513;
-            color: white;
-        }
-
-        /* Features Section */
-        .features-section {
-            margin: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: #2c2416;
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 40px 32px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(139, 69, 19, 0.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, #8b4513, #6d3610);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
-        }
-
-        .feature-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #2c2416;
-            margin-bottom: 16px;
-        }
-
-        .feature-description {
-            color: #6b5d4f;
-            line-height: 1.8;
-        }
-
-        /* Profile Section */
-        .profile-section {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            margin: 40px 0;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #8b4513, #6d3610);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-            font-weight: 700;
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
-        }
-
-        .profile-info h3 {
-            font-size: 24px;
-            color: #2c2416;
-            margin-bottom: 4px;
-        }
-
-        .profile-info p {
-            color: #6b5d4f;
-        }
-
-        .profile-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-
-        .detail-item {
-            padding: 16px 0;
-            border-bottom: 1px solid #e8dcc8;
-        }
-
-        .detail-label {
-            font-weight: 600;
-            color: #8b4513;
             font-size: 14px;
+        }
+
+        .btn-logout {
+            background: #292524;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #1c1917;
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 48px 0;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-bottom: 1px solid #fde68a;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #78350f;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #92400e;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #fde68a;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #78350f;
             margin-bottom: 4px;
         }
 
-        .detail-value {
-            color: #2c2416;
-            font-size: 16px;
+        .stat-label {
+            font-size: 13px;
+            color: #92400e;
+            font-weight: 500;
         }
 
         /* Success Message */
         .success-message {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            background: #d1fae5;
+            border: 1px solid #6ee7b7;
+            color: #065f46;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 24px 0;
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .success-message::before {
             content: "✓";
+            width: 24px;
+            height: 24px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            color: #28a745;
+            font-size: 14px;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+            box-shadow: 0 4px 20px rgba(120, 53, 15, 0.08);
+            border: 1px solid #fde68a;
+        }
+
+        .search-filter-form {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input-group {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border: 2px solid #fde68a;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #78350f;
+            box-shadow: 0 0 0 3px rgba(120, 53, 15, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #92400e;
+            font-size: 18px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 14px 16px;
+            border: 2px solid #fde68a;
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            color: #78350f;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 500;
+            min-width: 160px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #78350f;
+            box-shadow: 0 0 0 3px rgba(120, 53, 15, 0.1);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(120, 53, 15, 0.3);
+        }
+
+        .reset-btn {
+            background: #6b5d4f;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .reset-btn:hover {
+            background: #57534e;
+            transform: translateY(-1px);
+        }
+
+        .search-results-info {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #fef3c7;
+            border-radius: 8px;
+            color: #92400e;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #1c1917;
+        }
+
+        .view-all {
+            color: #78350f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .view-all:hover {
+            gap: 10px;
+        }
+
+        .view-all::after {
+            content: "→";
+        }
+
+        /* Books Section */
+        .books-section {
+            padding: 64px 0;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #e7e5e4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #d6d3d1;
+        }
+
+        .book-cover {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f5f4 0%, #e7e5e4 100%);
+            position: relative;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+
+        .no-cover {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            color: #78350f;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .book-info {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1c1917;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .book-meta {
+            font-size: 13px;
+            color: #78716c;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .book-author {
+            font-weight: 500;
+        }
+
+        .book-category {
+            color: #92400e;
+        }
+
+        .book-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-cart {
+            background: transparent;
+            color: #78350f;
+            border: 1.5px solid #78350f;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-cart:hover {
+            background: #78350f;
+            color: white;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+            transform: translateY(-1px);
+        }
+
+        /* Category Section */
+        .category-section {
+            padding: 48px 0;
+            background: #fafaf9;
+            border-top: 1px solid #e7e5e4;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #78716c;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: #57534e;
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1c1917;
+            color: white;
+            padding: 48px 0 24px;
+            margin-top: 64px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 16px;
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 14px;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
-            .header-container {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
                 flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 16px;
-                text-align: center;
             }
 
-            .user-menu {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .main-container {
-                padding: 20px 16px;
-            }
-
-            .page-title {
+            .hero h1 {
                 font-size: 36px;
             }
 
-            .page-subtitle {
-                font-size: 18px;
+            .section-title {
+                font-size: 24px;
             }
 
-            .cta-buttons {
+            .search-filter-form {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .search-input-group {
+                min-width: auto;
             }
 
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
+            .filter-group {
+                justify-content: space-between;
             }
 
-            .profile-details {
-                grid-template-columns: 1fr;
+            .search-btn, .reset-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">BookHaven</div>
-            <div class="user-menu">
-                <span class="welcome-text">Hai, {{ $user->Nama_Lengkap }}</span>
-                <span class="role-badge">{{ $user->Role }}</span>
-                <a href="/logout" class="logout-btn" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Keluar
-                </a>
-            </div>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">BookHaven</a>
+                <ul class="nav-links">
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#books">Jelajahi Buku</a></li>
+                    <li><a href="#categories">Kategori</a></li>
+                </ul>
+                <div class="user-section">
+                    <div class="user-info">
+                        <div class="user-avatar">{{ strtoupper(substr($user->Nama_User, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_User)[1] ?? '', 0, 1)) }}</div>
+                        <div class="user-details">
+                            <span class="user-name">{{ $user->Nama_User }}</span>
+                            <span class="user-role">{{ $user->Role }}</span>
+                        </div>
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-logout">Keluar</button>
+                    </form>
+                </div>
+            </nav>
         </div>
     </header>
 
-    <form id="logout-form" action="/logout" method="POST" style="display: none;">
-        @csrf
-    </form>
+    <!-- Success Message -->
+    @if(session('success'))
+    <div class="container">
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+    </div>
+    @endif
 
-    <!-- Main Content -->
-    <main class="main-container">
-        @if(session('success'))
-            <div class="success-message">
-                {{ session('success') }}
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Selamat Datang, {{ $user->Nama_User }}!</h1>
+                    <p>Temukan petualangan baru dalam setiap halaman. Jelajahi koleksi buku pilihan kami yang telah dikurasi khusus untuk Anda.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">{{ $books->count() }}</div>
+                            <div class="stat-label">Total Buku</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ $categories->count() }}</div>
+                            <div class="stat-label">Kategori</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">{{ $books->take(12)->count() }}</div>
+                            <div class="stat-label">Buku Terbaru</div>
+                        </div>
+                    </div>
+
+                    <!-- Search and Filter Section -->
+                    <div class="search-filter-section">
+                        <form method="GET" action="{{ route('user.dashboard') }}" class="search-filter-form">
+                            <div class="search-input-group">
+                                <div class="search-icon">🔍</div>
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="search-input"
+                                    placeholder="Cari buku berdasarkan judul, pengarang, atau ISBN..."
+                                    value="{{ request('search') }}"
+                                >
+                            </div>
+
+                            <div class="filter-group">
+                                <select name="kategori" class="filter-select">
+                                    <option value="">Semua Kategori</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id_kategori }}"
+                                                {{ request('kategori') == $category->id_kategori ? 'selected' : '' }}>
+                                            {{ $category->Nama_Kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select name="sort" class="filter-select">
+                                    <option value="">Urutkan</option>
+                                    <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
+                                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                                    <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Harga Terendah</option>
+                                    <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Harga Tertinggi</option>
+                                    <option value="title" {{ request('sort') == 'title' ? 'selected' : '' }}>A-Z</option>
+                                </select>
+
+                                <button type="submit" class="search-btn">
+                                    <span>Cari</span>
+                                </button>
+
+                                @if(request('search') || request('kategori') || request('sort'))
+                                    <a href="{{ route('user.dashboard') }}" class="reset-btn">
+                                        Reset
+                                    </a>
+                                @endif
+                            </div>
+                        </form>
+
+                        @if(request('search') || request('kategori'))
+                            <div class="search-results-info">
+                                @if(request('search') && request('kategori'))
+                                    Menampilkan hasil untuk "{{ request('search') }}" dalam kategori "{{ $categories->find(request('kategori'))->Nama_Kategori ?? 'Tidak Ditemukan' }}"
+                                @elseif(request('search'))
+                                    Menampilkan hasil pencarian untuk "{{ request('search') }}"
+                                @elseif(request('kategori'))
+                                    Menampilkan buku kategori "{{ $categories->find(request('kategori'))->Nama_Kategori ?? 'Tidak Ditemukan' }}"
+                                @endif
+                                - Ditemukan {{ $filteredBooks->count() ?? $books->count() }} buku
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
-        @endif
+        </div>
+    </section>
 
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1 class="page-title">Selamat Datang di BookHaven</h1>
-            <p class="page-subtitle">Jelajahi dunia literatur tanpa batas bersama kami</p>
-            <div class="cta-buttons">
-                <a href="/" class="btn btn-primary">Jelajahi Buku</a>
-                <a href="#profile" class="btn btn-outline">Lihat Profil</a>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features-section">
-            <h2 class="section-title">Fitur Unggulan untuk Anda</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3 class="feature-title">Koleksi Tak Terbatas</h3>
-                    <p class="feature-description">Akses ribuan buku dari berbagai genre dan penulis favorit Anda kapan saja.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3 class="feature-title">Rekomendasi Personal</h3>
-                    <p class="feature-description">Dapatkan rekomendasi buku yang disesuaikan dengan preferensi baca Anda.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3 class="feature-title">Akses Instan</h3>
-                    <p class="feature-description">Beli dan baca buku favorit Anda dalam hitungan detik.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section class="profile-section" id="profile">
-            <div class="profile-header">
-                <div class="profile-avatar">{{ substr($user->Nama_Lengkap, 0, 1) }}</div>
-                <div class="profile-info">
-                    <h3>Profil Anda</h3>
-                    <p>Informasi akun dan preferensi Anda</p>
-                </div>
+    <!-- Books Section -->
+    <section class="books-section" id="books">
+        <div class="container">
+            <div class="section-header">
+                @if(request('search') || request('kategori'))
+                    <h2 class="section-title">Hasil Pencarian</h2>
+                @else
+                    <h2 class="section-title">Buku Terbaru</h2>
+                @endif
+                <a href="#" class="view-all">Lihat Semua</a>
             </div>
 
-            <div class="profile-details">
-                <div class="detail-item">
-                    <div class="detail-label">Nama Lengkap</div>
-                    <div class="detail-value">{{ $user->Nama_Lengkap }}</div>
+            <div class="books-grid">
+                @forelse((isset($filteredBooks) ? $filteredBooks : $books)->take(12) as $book)
+                <div class="book-card">
+                    <div class="book-cover">
+                        @if($book->Cover && \Illuminate\Support\Facades\Storage::disk('public')->exists($book->Cover))
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($book->Cover) }}" alt="{{ $book->Judul }}">
+                        @else
+                            <div class="no-cover">{{ $book->Judul }}</div>
+                        @endif
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">{{ $book->Judul }}</h3>
+                        <div class="book-meta">
+                            <span class="book-author">{{ $book->Pengarang }}</span>
+                            <span class="book-category">{{ $book->kategori->Nama_Kategori ?? 'Tidak ada kategori' }}</span>
+                        </div>
+                        <div class="book-actions">
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
+                            </form>
+                            <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="detail-item">
-                    <div class="detail-label">Username</div>
-                    <div class="detail-value">{{ $user->Username }}</div>
+                @empty
+                <div class="empty-state">
+                    <div class="empty-state-icon">📚</div>
+                    <h3>Belum ada buku tersedia</h3>
+                    <p>Silakan cek kembali nanti.</p>
                 </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
 
-                <div class="detail-item">
-                    <div class="detail-label">Email</div>
-                    <div class="detail-value">{{ $user->Email }}</div>
+    <!-- Category Section -->
+    @if($categories->isNotEmpty())
+    @foreach($categories->take(3) as $category)
+    @if($category->buku->isNotEmpty())
+    <section class="category-section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kategori {{ $category->Nama_Kategori }}</h2>
+                <a href="#" class="view-all">Lihat Semua</a>
+            </div>
+
+            <div class="books-grid">
+                @foreach($category->buku->take(4) as $book)
+                <div class="book-card">
+                    <div class="book-cover">
+                        @if($book->Cover && \Illuminate\Support\Facades\Storage::disk('public')->exists($book->Cover))
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($book->Cover) }}" alt="{{ $book->Judul }}">
+                        @else
+                            <div class="no-cover">{{ $book->Judul }}</div>
+                        @endif
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">{{ $book->Judul }}</h3>
+                        <div class="book-meta">
+                            <span class="book-author">{{ $book->Pengarang }}</span>
+                            <span class="book-category">{{ $category->Nama_Kategori }}</span>
+                        </div>
+                        <div class="book-actions">
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                <button type="submit" class="btn btn-cart">Tambah ke Keranjang</button>
+                            </form>
+                            <form action="{{ route('cart.buyNow') }}" method="POST" style="margin-top: 8px;">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id_buku }}">
+                                <button type="submit" class="btn-buy">Beli Sekarang - Rp {{ number_format($book->Harga, 0, ',', '.') }}</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+    @endforeach
+    @endif
 
-                <div class="detail-item">
-                    <div class="detail-label">No. Handphone</div>
-                    <div class="detail-value">{{ $user->NoHp }}</div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BookHaven</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.6;">Toko buku online terpercaya untuk semua kebutuhan membaca Anda.</p>
                 </div>
-
-                <div class="detail-item">
-                    <div class="detail-label">Alamat</div>
-                    <div class="detail-value">{{ $user->Alamat }}</div>
+                <div class="footer-section">
+                    <h3>Tautan Cepat</h3>
+                    <ul>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Kontak</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                    </ul>
                 </div>
-
-                <div class="detail-item">
-                    <div class="detail-label">Role</div>
-                    <div class="detail-value">{{ $user->Role }}</div>
+                <div class="footer-section">
+                    <h3>Kategori</h3>
+                    <ul>
+                        <li><a href="#">Fiksi</a></li>
+                        <li><a href="#">Non-Fiksi</a></li>
+                        <li><a href="#">Best Seller</a></li>
+                        <li><a href="#">Rilis Baru</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Hubungi Kami</h3>
+                    <ul>
+                        <li><a href="#">Email</a></li>
+                        <li><a href="#">Telepon</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BookHaven. Hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

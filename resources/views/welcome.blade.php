@@ -331,6 +331,45 @@
     .feature-desc { color:#6b5d4f; margin-top:8px; min-height:56px; font-size:13px; display:block; }
     .overlay .title { font-size:13px; }
     .overlay .meta { font-size:11px; opacity:0.95; margin-top:4px; font-weight:600; }
+    .overlay .actions {
+        margin-top:12px;
+        display:flex;
+        flex-direction: column;
+        gap:6px;
+    }
+    .overlay .actions .btn {
+        padding:10px 16px;
+        font-size:11px;
+        border-radius:6px;
+        font-weight:600;
+        transition: all 0.3s ease;
+        text-align: center;
+        letter-spacing: 0.3px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .overlay .actions .btn-outline {
+        background: rgba(255,255,255,0.15);
+        border: 1.5px solid rgba(255,255,255,0.95);
+        color: white;
+        backdrop-filter: blur(4px);
+    }
+    .overlay .actions .btn-outline:hover {
+        background: rgba(255,255,255,0.28);
+        border-color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .overlay .actions .btn-white {
+        background: white;
+        color: #8b4513;
+        padding:10px 16px;
+        border: 1.5px solid white;
+    }
+    .overlay .actions .btn-white:hover {
+        background: #f5f1e8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255,255,255,0.4);
+    }
 
         /* Book Categories */
         .categories {
@@ -526,7 +565,7 @@
         </div>
     </section>
 
-   
+
 
     <!-- Categories Section -->
     <section class="categories" id="categories">
@@ -544,6 +583,14 @@
                             <div class="overlay">
                                 <div class="title">{{ \Illuminate\Support\Str::limit($buku->Judul, 36) }}</div>
                                 <div class="meta">{{ $buku->Pengarang }} &middot; {{ $buku->kategori?->Nama_Kategori ?? '' }}</div>
+                                <div class="actions">
+                                    <form action="/cart/add" method="POST" style="display:inline;">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $buku->id }}" />
+                                        <button type="submit" class="btn btn-outline">Tambah ke Keranjang</button>
+                                    </form>
+                                    <a href="/checkout?book={{ $buku->id }}" class="btn btn-white">Beli Sekarang</a>
+                                </div>
                             </div>
                         </div>
                     @endforeach

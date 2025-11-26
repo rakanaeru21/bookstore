@@ -14,10 +14,10 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'id_buku' => 'required|integer'
+            'book_id' => 'required|integer'
         ]);
 
-        $buku = Buku::find($request->input('id_buku'));
+        $buku = Buku::find($request->input('book_id'));
         if (!$buku) {
             return Redirect::back()->with('error', 'Buku tidak ditemukan.');
         }
