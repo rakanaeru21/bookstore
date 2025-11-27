@@ -116,6 +116,175 @@
 
         .user-info:hover {
             box-shadow: 0 4px 15px rgba(120, 53, 15, 0.2);
+            cursor: pointer;
+        }
+
+        .user-profile-dropdown {
+            position: relative;
+        }
+
+        .user-info .dropdown-arrow {
+            font-size: 10px;
+            color: #78350f;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .user-info.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(120, 53, 15, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .profile-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .profile-dropdown-header {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .profile-avatar-large {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .profile-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+        }
+
+        .profile-email {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .profile-dropdown-body {
+            padding: 16px;
+        }
+
+        .profile-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .profile-info-item:hover {
+            background: #f5f5f4;
+        }
+
+        .profile-info-item i {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #f5ebe0 0%, #e6d5c3 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #78350f;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .profile-info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .profile-info-label {
+            font-size: 11px;
+            color: #78716c;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-info-value {
+            font-size: 14px;
+            color: #1c1917;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .profile-role-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f5ebe0 0%, #e6d5c3 100%);
+            color: #78350f;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .profile-dropdown-footer {
+            padding: 16px;
+            border-top: 1px solid #e7e5e4;
+        }
+
+        .btn-edit-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-edit-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(120, 53, 15, 0.3);
         }
 
         .user-avatar {
@@ -1105,6 +1274,276 @@
                 font-size: 12px;
             }
         }
+
+        /* Floating Action Button */
+        .floating-action-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
+        .floating-action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(120, 53, 15, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: floatIn 0.5s ease-out;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .floating-action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(120, 53, 15, 0.5);
+        }
+
+        .floating-action-btn .fab-icon-main,
+        .floating-action-btn .fab-icon-close {
+            font-size: 22px;
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .floating-action-btn .fab-icon-close {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        .floating-action-btn.active .fab-icon-main {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .floating-action-btn.active .fab-icon-close {
+            opacity: 1;
+            transform: rotate(0);
+        }
+
+        .floating-action-btn.active {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+        }
+
+        .fab-main-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+            animation: badgePop 0.3s ease-out;
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* FAB Menu */
+        .fab-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px 12px 12px;
+            background: white;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            animation: fabItemIn 0.3s ease-out backwards;
+        }
+
+        .fab-menu.show .fab-item:nth-child(1) { animation-delay: 0.05s; }
+        .fab-menu.show .fab-item:nth-child(2) { animation-delay: 0.1s; }
+        .fab-menu.show .fab-item:nth-child(3) { animation-delay: 0.15s; }
+
+        @keyframes fabItemIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fab-item:hover {
+            transform: translateX(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .fab-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .fab-cart .fab-item-icon {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: white;
+        }
+
+        .fab-whatsapp .fab-item-icon {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+        }
+
+        .fab-item-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid white;
+        }
+
+        .fab-item-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1c1917;
+            white-space: nowrap;
+        }
+
+        .fab-item-info {
+            font-size: 12px;
+            color: #78716c;
+            white-space: nowrap;
+            margin-left: auto;
+            padding-left: 12px;
+        }
+
+        .fab-cart .fab-item-info {
+            color: #78350f;
+            font-weight: 600;
+        }
+
+        /* FAB Backdrop */
+        .fab-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+
+        .fab-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .floating-action-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .floating-action-btn {
+                width: 56px;
+                height: 56px;
+            }
+
+            .fab-item {
+                padding: 10px 14px 10px 10px;
+            }
+
+            .fab-item-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .fab-item-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-action-container {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .floating-action-btn {
+                width: 52px;
+                height: 52px;
+            }
+
+            .floating-action-btn .fab-icon-main,
+            .floating-action-btn .fab-icon-close {
+                font-size: 20px;
+            }
+
+            .fab-main-badge {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1124,23 +1563,67 @@
                     <li><a href="#categories"><i class="fas fa-layer-group"></i> Kategori</a></li>
                 </ul>
                 <div class="user-section">
-                    <div class="user-info">
-                        <div class="user-avatar">{{ strtoupper(substr($user->Nama_Lengkap, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_Lengkap)[1] ?? '', 0, 1)) }}</div>
-                        <div class="user-details">
-                            <span class="user-name">{{ $user->Nama_Lengkap }}</span>
-                            <span class="user-role">{{ $user->Role }}</span>
+                    <div class="user-profile-dropdown">
+                        <button class="user-info" onclick="toggleProfileDropdown()" type="button">
+                            <div class="user-avatar">{{ strtoupper(substr($user->Nama_Lengkap, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_Lengkap)[1] ?? '', 0, 1)) }}</div>
+                            <div class="user-details">
+                                <span class="user-name">{{ $user->Nama_Lengkap }}</span>
+                                <span class="user-role">{{ $user->Role }}</span>
+                            </div>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </button>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <div class="profile-dropdown-header">
+                                <div class="profile-avatar-large">{{ strtoupper(substr($user->Nama_Lengkap, 0, 1)) }}{{ strtoupper(substr(explode(' ', $user->Nama_Lengkap)[1] ?? '', 0, 1)) }}</div>
+                                <div class="profile-header-info">
+                                    <span class="profile-name">{{ $user->Nama_Lengkap }}</span>
+                                    <span class="profile-email">{{ $user->Email }}</span>
+                                </div>
+                            </div>
+                            <div class="profile-dropdown-body">
+                                <div class="profile-info-item">
+                                    <i class="fas fa-user"></i>
+                                    <div class="profile-info-content">
+                                        <span class="profile-info-label">Nama Lengkap</span>
+                                        <span class="profile-info-value">{{ $user->Nama_Lengkap }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <div class="profile-info-content">
+                                        <span class="profile-info-label">Email</span>
+                                        <span class="profile-info-value">{{ $user->Email }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="profile-info-content">
+                                        <span class="profile-info-label">Telepon</span>
+                                        <span class="profile-info-value">{{ $user->NoHp ?? '-' }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="profile-info-content">
+                                        <span class="profile-info-label">Alamat</span>
+                                        <span class="profile-info-value">{{ $user->Alamat ?? '-' }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <div class="profile-info-content">
+                                        <span class="profile-info-label">Role</span>
+                                        <span class="profile-info-value profile-role-badge">{{ $user->Role }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-dropdown-footer">
+                                <a href="{{ route('profile.edit') }}" class="btn-edit-profile">
+                                    <i class="fas fa-edit"></i> Edit Profil
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    @php
-                        $cart = session()->get('cart', []);
-                        $cartCount = array_sum(array_column($cart, 'qty'));
-                    @endphp
-                    <a href="{{ route('cart.show') }}" class="btn btn-cart-header">
-                        <i class="fas fa-shopping-cart"></i>
-                        @if($cartCount > 0)
-                            <span class="cart-badge">{{ $cartCount }}</span>
-                        @endif
-                    </a>
                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                         @csrf
                         <button type="submit" class="btn btn-logout"><i class="fas fa-sign-out-alt"></i> Keluar</button>
@@ -1449,5 +1932,104 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Action Button -->
+    @php
+        $cartFloat = session()->get('cart', []);
+        $cartFloatCount = array_sum(array_column($cartFloat, 'qty'));
+        $cartFloatTotal = 0;
+        foreach($cartFloat as $item) {
+            $cartFloatTotal += $item['Harga'] * $item['qty'];
+        }
+    @endphp
+    <div class="floating-action-container">
+        <!-- FAB Menu Items -->
+        <div class="fab-menu" id="fabMenu">
+            <a href="{{ route('cart.show') }}" class="fab-item fab-cart">
+                <div class="fab-item-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    @if($cartFloatCount > 0)
+                        <span class="fab-item-badge">{{ $cartFloatCount }}</span>
+                    @endif
+                </div>
+                <span class="fab-item-label">Keranjang</span>
+                @if($cartFloatCount > 0)
+                    <span class="fab-item-info">Rp {{ number_format($cartFloatTotal, 0, ',', '.') }}</span>
+                @endif
+            </a>
+            <a href="https://wa.me/6281280970700?text=Halo%20Admin%20BookHaven,%20saya%20ingin%20bertanya%20tentang%20produk" target="_blank" class="fab-item fab-whatsapp">
+                <div class="fab-item-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <span class="fab-item-label">WhatsApp</span>
+                <span class="fab-item-info">Hubungi Admin</span>
+            </a>
+        </div>
+
+        <!-- Main FAB Button -->
+        <button class="floating-action-btn" id="fabToggle" onclick="toggleFabMenu()">
+            <i class="fas fa-plus fab-icon-main"></i>
+            <i class="fas fa-times fab-icon-close"></i>
+            @if($cartFloatCount > 0)
+                <span class="fab-main-badge">{{ $cartFloatCount }}</span>
+            @endif
+        </button>
+    </div>
+
+    <script>
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            const userInfo = dropdown.previousElementSibling;
+
+            dropdown.classList.toggle('show');
+            userInfo.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const userProfileDropdown = document.querySelector('.user-profile-dropdown');
+
+            if (!userProfileDropdown.contains(event.target)) {
+                dropdown.classList.remove('show');
+                document.querySelector('.user-info').classList.remove('active');
+            }
+        });
+
+        // Close dropdown when pressing Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const dropdown = document.getElementById('profileDropdown');
+                dropdown.classList.remove('show');
+                document.querySelector('.user-info').classList.remove('active');
+                closeFabMenu();
+            }
+        });
+
+        // FAB Menu Functions
+        function toggleFabMenu() {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabToggle = document.getElementById('fabToggle');
+
+            fabMenu.classList.toggle('show');
+            fabToggle.classList.toggle('active');
+        }
+
+        function closeFabMenu() {
+            const fabMenu = document.getElementById('fabMenu');
+            const fabToggle = document.getElementById('fabToggle');
+
+            fabMenu.classList.remove('show');
+            fabToggle.classList.remove('active');
+        }
+
+        // Close FAB menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const fabContainer = document.querySelector('.floating-action-container');
+            if (fabContainer && !fabContainer.contains(event.target)) {
+                closeFabMenu();
+            }
+        });
+    </script>
 </body>
 </html>
