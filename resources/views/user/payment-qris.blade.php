@@ -394,13 +394,7 @@
                         </div>
                         <div class="info-row">
                             <span>Metode:</span>
-                            <span>
-                                @if($transaksi->metode_pembayaran == 'transfer')
-                                    Transfer Bank
-                                @else
-                                    Cash on Delivery
-                                @endif
-                            </span>
+                            <span>QRIS</span>
                         </div>
                         <div class="info-row">
                             <span>Total Pembayaran:</span>

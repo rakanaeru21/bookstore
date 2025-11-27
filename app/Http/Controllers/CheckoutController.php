@@ -41,7 +41,7 @@ class CheckoutController extends Controller
             'alamat_pengiriman' => 'required|string|max:500',
             'nomor_telepon' => 'required|string|max:20',
             'ekspedisi' => 'required|string|in:reguler,instant',
-            'metode_pembayaran' => 'required|string|in:transfer,cod',
+            'metode_pembayaran' => 'required|string|in:qris',
             'catatan' => 'nullable|string|max:255'
         ]);
 
