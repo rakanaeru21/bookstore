@@ -109,6 +109,23 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 24px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
         }
 
         .success-icon i {
@@ -301,13 +318,48 @@
         <div class="container">
             <!-- Success Message -->
             <div class="success-container">
-                <div class="success-icon">
-                    <i class="fas fa-check"></i>
+                @php
+                    // Set title and subtitle based on payment status and method
+                    $title = 'Pesanan Berhasil Dibuat!';
+                    $subtitle = 'Terima kasih telah berbelanja di BookHaven. Pesanan Anda sedang diproses.';
+                    $iconClass = 'fas fa-check';
+                    $iconColor = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+
+                    if($transaksi->Status_Pembayaran == 'Menunggu') {
+                        if($transaksi->metode_pembayaran == 'transfer' || $transaksi->metode_pembayaran == 'qris') {
+                            $title = 'Pesanan Dibuat - Menunggu Pembayaran';
+                            $subtitle = 'Silakan lakukan pembayaran sesuai instruksi di bawah untuk melanjutkan proses pesanan.';
+                            $iconClass = 'fas fa-clock';
+                            $iconColor = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+                        } else {
+                            $title = 'Pesanan Berhasil Dibuat!';
+                            $subtitle = 'Pesanan COD Anda telah dikonfirmasi. Tim kami akan segera memproses pesanan.';
+                        }
+                    } elseif($transaksi->Status_Pembayaran == 'Menunggu Verifikasi') {
+                        $title = 'Bukti Pembayaran Diterima';
+                        $subtitle = 'Bukti pembayaran sedang dalam proses verifikasi. Kami akan mengkonfirmasi dalam 1x24 jam.';
+                        $iconClass = 'fas fa-hourglass-half';
+                        $iconColor = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+                    } elseif($transaksi->Status_Pembayaran == 'Berhasil') {
+                        $title = 'Pembayaran Berhasil!';
+                        $subtitle = 'Pembayaran telah dikonfirmasi. Pesanan Anda sedang diproses untuk pengiriman.';
+                        $iconClass = 'fas fa-check-circle';
+                        $iconColor = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                    } elseif($transaksi->Status_Pembayaran == 'Gagal') {
+                        $title = 'Pembayaran Ditolak';
+                        $subtitle = 'Maaf, pembayaran tidak dapat diverifikasi. Silakan hubungi customer service untuk bantuan.';
+                        $iconClass = 'fas fa-times-circle';
+                        $iconColor = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                    }
+                @endphp
+
+                <div class="success-icon" style="background: {{ $iconColor }}">
+                    <i class="{{ $iconClass }}"></i>
                 </div>
 
-                <h1 class="success-title">Pesanan Berhasil Dibuat!</h1>
+                <h1 class="success-title">{{ $title }}</h1>
                 <p class="success-subtitle">
-                    Terima kasih telah berbelanja di BookHaven. Pesanan Anda sedang diproses.
+                    {{ $subtitle }}
                 </p>
 
                 <!-- Order Info -->
@@ -325,6 +377,21 @@
                     <div class="info-card">
                         <div class="info-label">Status</div>
                         <div class="info-value">{{ $transaksi->Status }}</div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-label">Status Pembayaran</div>
+                        <div class="info-value">
+                            @if($transaksi->Status_Pembayaran == 'Menunggu')
+                                <span style="color: #f59e0b;">⏳ Menunggu Pembayaran</span>
+                            @elseif($transaksi->Status_Pembayaran == 'Menunggu Verifikasi')
+                                <span style="color: #3b82f6;">🔍 Menunggu Verifikasi</span>
+                            @elseif($transaksi->Status_Pembayaran == 'Berhasil')
+                                <span style="color: #10b981;">✅ Berhasil</span>
+                            @else
+                                <span style="color: #ef4444;">❌ Ditolak</span>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="info-card">
@@ -351,7 +418,13 @@
                             Bukti Pembayaran Telah Diupload
                         </h4>
                         <p style="color: #15803d; font-size: 14px; margin-bottom: 12px;">
-                            Bukti pembayaran Anda telah berhasil diupload dan sedang dalam proses verifikasi.
+                            @if($transaksi->Status_Pembayaran == 'Menunggu Verifikasi')
+                                Bukti pembayaran Anda telah berhasil diupload dan sedang dalam proses verifikasi oleh tim kami.
+                            @elseif($transaksi->Status_Pembayaran == 'Berhasil')
+                                Bukti pembayaran telah diverifikasi dan pembayaran dikonfirmasi berhasil.
+                            @else
+                                Bukti pembayaran telah diupload.
+                            @endif
                         </p>
                         <img src="{{ asset('storage/' . $transaksi->Bukti_Pembayaran) }}"
                              alt="Bukti Pembayaran"
@@ -359,14 +432,96 @@
                     </div>
                 @endif
 
-                @if($transaksi->metode_pembayaran == 'transfer')
-                    <div style="background: #fef3c7; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
-                        <h4 style="color: #92400e; margin-bottom: 8px;">Instruksi Pembayaran:</h4>
-                        <p style="color: #92400e; font-size: 14px;">
-                            Silakan transfer ke:<br>
-                            <strong>Bank BCA: 1234567890</strong><br>
-                            <strong>Atas Nama: BookHaven Store</strong><br>
-                            <strong>Jumlah: Rp {{ number_format($transaksi->Total_harga, 0, ',', '.') }}</strong>
+                @if($transaksi->Status_Pembayaran == 'Gagal')
+                    <div style="background: #fef2f2; border: 1px solid #fca5a5; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
+                        <h4 style="color: #dc2626; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Pembayaran Ditolak
+                        </h4>
+                        <p style="color: #dc2626; font-size: 14px; margin-bottom: 8px;">
+                            Maaf, bukti pembayaran tidak dapat diverifikasi. Kemungkinan penyebab:
+                        </p>
+                        <ul style="color: #dc2626; font-size: 14px; margin-left: 20px; margin-bottom: 12px;">
+                            <li>Nominal transfer tidak sesuai</li>
+                            <li>Bukti pembayaran tidak jelas</li>
+                            <li>Transfer ke rekening yang salah</li>
+                        </ul>
+                        @if($transaksi->catatan_admin)
+                            <p style="color: #dc2626; font-size: 14px; background: #fef2f2; padding: 8px; border-radius: 4px; border: 1px dashed #fca5a5;">
+                                <strong>Catatan Admin:</strong> {{ $transaksi->catatan_admin }}
+                            </p>
+                        @endif
+                        <p style="color: #dc2626; font-size: 14px; margin-top: 12px;">
+                            <strong>Silakan hubungi customer service kami untuk bantuan lebih lanjut.</strong>
+                        </p>
+                    </div>
+                @elseif($transaksi->metode_pembayaran == 'transfer' && $transaksi->Status_Pembayaran == 'Menunggu')
+                    <div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
+                        <h4 style="color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-university"></i>
+                            Instruksi Pembayaran Transfer Bank
+                        </h4>
+                        <p style="color: #92400e; font-size: 14px; margin-bottom: 12px;">
+                            Silakan transfer ke rekening berikut:
+                        </p>
+                        <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                            <p style="color: #92400e; font-size: 14px; margin: 0;">
+                                <strong>Bank BCA</strong><br>
+                                <strong>No. Rekening: 1234567890</strong><br>
+                                <strong>Atas Nama: BookHaven Store</strong><br>
+                                <strong style="color: #dc2626; font-size: 16px;">Jumlah: Rp {{ number_format($transaksi->Total_harga, 0, ',', '.') }}</strong>
+                            </p>
+                        </div>
+                        <p style="color: #92400e; font-size: 13px;">
+                            💡 <strong>Tips:</strong> Setelah transfer, jangan lupa upload bukti pembayaran untuk verifikasi yang lebih cepat.
+                        </p>
+                    </div>
+                @elseif($transaksi->metode_pembayaran == 'qris' && $transaksi->Status_Pembayaran == 'Menunggu')
+                    <div style="background: #f0f9ff; border: 1px solid #3b82f6; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
+                        <h4 style="color: #1d4ed8; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-qrcode"></i>
+                            Pembayaran QRIS
+                        </h4>
+                        <p style="color: #1d4ed8; font-size: 14px; margin-bottom: 12px;">
+                            Scan QR Code berikut untuk melakukan pembayaran:
+                        </p>
+                        <div style="text-align: center; margin: 16px 0;">
+                            @if(\Illuminate\Support\Facades\Storage::disk('public')->exists('img/qris-payment.jpg'))
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url('img/qris-payment.jpg') }}"
+                                     alt="QRIS Code"
+                                     style="max-width: 200px; border-radius: 8px; border: 2px solid #3b82f6;">
+                            @else
+                                <div style="width: 200px; height: 200px; background: #f3f4f6; border: 2px dashed #3b82f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: #6b7280;">
+                                    <div style="text-align: center;">
+                                        <i class="fas fa-qrcode" style="font-size: 48px; margin-bottom: 8px;"></i>
+                                        <br>QR Code
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <p style="color: #1d4ed8; font-size: 14px;">
+                            <strong style="color: #dc2626;">Total: Rp {{ number_format($transaksi->Total_harga, 0, ',', '.') }}</strong>
+                        </p>
+                        <p style="color: #1d4ed8; font-size: 13px; margin-top: 8px;">
+                            💡 <strong>Tips:</strong> Screenshot bukti pembayaran dan upload untuk verifikasi.
+                        </p>
+                    </div>
+                @endif
+
+                @if(($transaksi->metode_pembayaran == 'transfer' || $transaksi->metode_pembayaran == 'qris') && $transaksi->Status_Pembayaran == 'Menunggu' && !$transaksi->Bukti_Pembayaran)
+                    <div style="background: #f0f9ff; border: 1px solid #3b82f6; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: center;">
+                        <h4 style="color: #1d4ed8; margin-bottom: 12px;">
+                            <i class="fas fa-upload" style="margin-right: 8px;"></i>
+                            Sudah Transfer?
+                        </h4>
+                        <a href="{{ route('payment.upload', $transaksi->id_transaksi) }}"
+                           class="btn btn-primary"
+                           style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;">
+                            <i class="fas fa-camera"></i>
+                            Upload Bukti Pembayaran
+                        </a>
+                        <p style="color: #6b7280; font-size: 13px; margin-top: 8px;">
+                            Upload bukti transfer untuk mempercepat verifikasi pesanan
                         </p>
                     </div>
                 @endif
