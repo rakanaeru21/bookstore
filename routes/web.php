@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
     // Checkout routes
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+    Route::get('/payment/qris/{id}', [CheckoutController::class, 'paymentQris'])->name('payment.qris');
+    Route::get('/payment/upload/{id}', [CheckoutController::class, 'uploadBukti'])->name('payment.upload');
+    Route::post('/payment/upload/{id}', [CheckoutController::class, 'processUploadBukti'])->name('payment.process-upload');
     Route::get('/checkout/success/{id}', [CheckoutController::class, 'success'])->name('checkout.success');
 });
 
@@ -68,6 +71,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('admin.kategori.edit');
         Route::put('/admin/kategori/{kategori}', [KategoriController::class, 'update'])->name('admin.kategori.update');
         Route::delete('/admin/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('admin.kategori.destroy');
+
+        // Orders management routes
+        Route::get('/admin/pesanan', [App\Http\Controllers\PesananController::class, 'index'])->name('admin.pesanan.index');
+        Route::get('/admin/pesanan/{id}', [App\Http\Controllers\PesananController::class, 'show'])->name('admin.pesanan.show');
+        Route::put('/admin/pesanan/{id}/status', [App\Http\Controllers\PesananController::class, 'updateStatus'])->name('admin.pesanan.update-status');
+        Route::put('/admin/pesanan/{id}/payment', [App\Http\Controllers\PesananController::class, 'updatePayment'])->name('admin.pesanan.update-payment');
+        Route::put('/admin/pesanan/{id}/delivery', [App\Http\Controllers\PesananController::class, 'updateDelivery'])->name('admin.pesanan.update-delivery');
 
     // User management routes (admin)
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'])->name('admin.user.index');

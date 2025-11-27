@@ -449,6 +449,37 @@
                             </div>
                         </div>
 
+                        <!-- Ekspedisi -->
+                        <div class="form-section">
+                            <h3 class="section-title">Ekspedisi</h3>
+
+                            <div class="radio-group">
+                                <div class="radio-item {{ old('ekspedisi', 'reguler') == 'reguler' ? 'selected' : '' }}">
+                                    <input type="radio" id="reguler" name="ekspedisi" value="reguler" data-price="8000"
+                                           {{ old('ekspedisi', 'reguler') == 'reguler' ? 'checked' : '' }}>
+                                    <label class="radio-label" for="reguler">
+                                        <div>
+                                            <i class="fas fa-truck" style="margin-right: 8px;"></i>
+                                            Reguler
+                                            <div style="font-size: 12px; color: #78716c; font-weight: 400;">Rp 8.000 (3-5 hari kerja)</div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="radio-item {{ old('ekspedisi') == 'instant' ? 'selected' : '' }}">
+                                    <input type="radio" id="instant" name="ekspedisi" value="instant" data-price="20000"
+                                           {{ old('ekspedisi') == 'instant' ? 'checked' : '' }}>
+                                    <label class="radio-label" for="instant">
+                                        <div>
+                                            <i class="fas fa-shipping-fast" style="margin-right: 8px;"></i>
+                                            Instant
+                                            <div style="font-size: 12px; color: #78716c; font-weight: 400;">Rp 20.000 (1-2 hari kerja)</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Metode Pembayaran -->
                         <div class="form-section">
                             <h3 class="section-title">Metode Pembayaran</h3>
@@ -488,8 +519,8 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary checkout-button">
-                            <i class="fas fa-credit-card" style="margin-right: 8px;"></i>
-                            Buat Pesanan
+                            <i class="fas fa-arrow-right" style="margin-right: 8px;"></i>
+                            Lanjutkan Pembayaran
                         </button>
                     </form>
                 </div>
@@ -533,12 +564,12 @@
 
                     <div class="summary-row">
                         <span>Ongkir:</span>
-                        <span>Gratis</span>
+                        <span id="shipping-cost">Rp 8.000</span>
                     </div>
 
                     <div class="summary-total">
                         <span>Total:</span>
-                        <span>Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
+                        <span id="total-price">Rp {{ number_format($totalPrice + 8000, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
@@ -546,17 +577,58 @@
     </main>
 
     <script>
-        // Handle radio button styling
+        // Store the original subtotal
+        const subtotal = {{ $totalPrice }};
+
+        // Handle radio button styling and update costs
+        function updateShippingCost() {
+            const selectedExpedisi = document.querySelector('input[name="ekspedisi"]:checked');
+            if (!selectedExpedisi) return;
+
+            const shippingCost = parseInt(selectedExpedisi.dataset.price);
+            const newTotal = subtotal + shippingCost;
+
+            // Update UI
+            document.getElementById('shipping-cost').textContent = 'Rp ' + shippingCost.toLocaleString('id-ID');
+            document.getElementById('total-price').textContent = 'Rp ' + newTotal.toLocaleString('id-ID');
+        }
+
+        // Handle payment method radio button styling
         document.querySelectorAll('input[name="metode_pembayaran"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                // Remove selected class from all radio items
+                // Remove selected class from all payment radio items
                 document.querySelectorAll('.radio-item').forEach(item => {
-                    item.classList.remove('selected');
+                    if (item.querySelector('input[name="metode_pembayaran"]')) {
+                        item.classList.remove('selected');
+                    }
                 });
 
                 // Add selected class to current item
                 this.closest('.radio-item').classList.add('selected');
             });
+        });
+
+        // Handle expedisi radio button styling and cost update
+        document.querySelectorAll('input[name="ekspedisi"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all expedisi radio items
+                document.querySelectorAll('.radio-item').forEach(item => {
+                    if (item.querySelector('input[name="ekspedisi"]')) {
+                        item.classList.remove('selected');
+                    }
+                });
+
+                // Add selected class to current item
+                this.closest('.radio-item').classList.add('selected');
+
+                // Update shipping cost
+                updateShippingCost();
+            });
+        });
+
+        // Initialize the shipping cost on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateShippingCost();
         });
     </script>
 </body>

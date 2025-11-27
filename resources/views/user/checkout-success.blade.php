@@ -337,7 +337,27 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="info-card">
+                        <div class="info-label">Ekspedisi</div>
+                        <div class="info-value">{{ $transaksi->Ekspedisi }}</div>
+                    </div>
                 </div>
+
+                @if($transaksi->Bukti_Pembayaran)
+                    <div style="background: #f0fdf4; border: 1px solid #22c55e; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
+                        <h4 style="color: #15803d; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-check-circle"></i>
+                            Bukti Pembayaran Telah Diupload
+                        </h4>
+                        <p style="color: #15803d; font-size: 14px; margin-bottom: 12px;">
+                            Bukti pembayaran Anda telah berhasil diupload dan sedang dalam proses verifikasi.
+                        </p>
+                        <img src="{{ asset('storage/' . $transaksi->Bukti_Pembayaran) }}"
+                             alt="Bukti Pembayaran"
+                             style="max-width: 300px; max-height: 400px; border-radius: 8px; border: 1px solid #d1d5db;">
+                    </div>
+                @endif
 
                 @if($transaksi->metode_pembayaran == 'transfer')
                     <div style="background: #fef3c7; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: left;">
@@ -380,14 +400,23 @@
                 @endforeach
 
                 <div class="total-summary">
+                    @php
+                        // Calculate subtotal (total items without shipping)
+                        $subtotal = 0;
+                        foreach($details as $detail) {
+                            $subtotal += $detail->harga;
+                        }
+                        $shippingCost = $transaksi->Total_harga - $subtotal;
+                    @endphp
+
                     <div class="summary-row">
                         <span>Subtotal:</span>
-                        <span>Rp {{ number_format($transaksi->Total_harga, 0, ',', '.') }}</span>
+                        <span>Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
                     </div>
 
                     <div class="summary-row">
                         <span>Ongkir:</span>
-                        <span>Gratis</span>
+                        <span>Rp {{ number_format($shippingCost, 0, ',', '.') }}</span>
                     </div>
 
                     <div class="summary-total">
