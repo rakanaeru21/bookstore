@@ -15,10 +15,12 @@ class UserController extends Controller
     {
         $search = $request->get('search');
 
-        $users = User::when($search, function ($query, $search) {
-                return $query->where('Nama_Lengkap', 'like', '%' . $search . '%')
-                    ->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
+        $users = User::where('Role', 'User')
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('Nama_Lengkap', 'like', '%' . $search . '%')
+                      ->orWhere('Email', 'like', '%' . $search . '%');
+                });
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10)

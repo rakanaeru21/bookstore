@@ -18,7 +18,7 @@ class PesananController extends Controller
                      ->join('t_user', 't_transaksi.id_user', '=', 't_user.id_user')
                      ->select('t_transaksi.*', 't_user.Nama_Lengkap as nama_customer', 't_user.Email')
                      ->orderBy('t_transaksi.created_at', 'desc')
-                     ->get();
+                     ->paginate(10);
 
         return view('admin.pesanan.index', compact('pesanan'));
     }

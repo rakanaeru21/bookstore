@@ -5,9 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - BookHaven</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|playfair-display:700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700|poppins:600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #8b4513;
+            --primary-dark: #6d3610;
+            --primary-light: #a0522d;
+            --secondary: #d2691e;
+            --accent: #cd853f;
+            --success: #28a745;
+            --warning: #f59e0b;
+            --danger: #dc3545;
+            --dark: #2c2416;
+            --gray-900: #1a1a1a;
+            --gray-800: #2c2416;
+            --gray-700: #4a3f35;
+            --gray-600: #6b5d4f;
+            --gray-500: #8b7355;
+            --gray-400: #a89985;
+            --gray-300: #d4c4b0;
+            --gray-200: #e8dcc8;
+            --gray-100: #f5f0e8;
+            --gray-50: #faf8f5;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,10 +43,11 @@
         }
 
         body {
-            font-family: 'Instrument Sans', sans-serif;
-            background: #f8f9fa;
-            color: #2c2416;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
             line-height: 1.6;
+            min-height: 100vh;
             transition: margin-left 0.3s ease;
         }
 
@@ -28,19 +57,22 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #8b4513;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 12px;
+            padding: 12px 14px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
         }
 
         .sidebar-toggle:hover {
-            background: #6d3610;
-            transform: scale(1.05);
+            background: var(--primary-dark);
+        }
+
+        .sidebar-toggle i {
+            font-size: 18px;
         }
 
         /* Collapsible Sidebar */
@@ -50,8 +82,8 @@
             left: -280px;
             width: 280px;
             height: 100vh;
-            background: white;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
             z-index: 1000;
             transition: left 0.3s ease;
             overflow-y: auto;
@@ -62,55 +94,101 @@
         }
 
         .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid #e8dcc8;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
+            padding: 24px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-brand {
+            flex: 1;
         }
 
         .sidebar-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            font-size: 20px;
         }
 
         .sidebar-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .sidebar-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .sidebar-menu {
-            padding: 20px 0;
+            padding: 16px 12px;
+        }
+
+        .menu-section {
+            margin-bottom: 8px;
+        }
+
+        .menu-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 14px 8px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 16px;
             text-decoration: none;
-            color: #2c2416;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            border-radius: 10px;
+            margin: 2px 0;
+            font-weight: 500;
         }
 
         .menu-item:hover {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: var(--gray-100);
+            color: var(--primary);
         }
 
         .menu-item.active {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .menu-icon {
             margin-right: 12px;
-            font-size: 18px;
+            font-size: 16px;
             width: 20px;
+            text-align: center;
         }
 
         /* Overlay for mobile */
@@ -120,7 +198,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -145,435 +223,525 @@
 
         /* Header */
         .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: #8b4513;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gray-50);
+            padding: 8px 16px 8px 8px;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-details {
+            line-height: 1.3;
         }
 
         .welcome-text {
-            font-weight: 500;
-            color: #2c2416;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 14px;
+            display: block;
         }
 
         .role-badge {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
-            padding: 4px 12px;
+            padding: 2px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         .logout-btn {
-            color: #dc3545;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-500);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 10px 16px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
         }
 
         .logout-btn:hover {
-            color: #a71e2a;
+            color: var(--danger);
+            background: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
         }
 
         /* Main Content */
         .main-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 32px 24px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
         }
 
         .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: #2c2416;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-title-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
         }
 
         .page-subtitle {
-            color: #6b5d4f;
-            margin-bottom: 40px;
+            color: var(--gray-500);
+            font-size: 15px;
+            margin-left: 56px;
         }
 
         /* Stats Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
         }
 
         .stat-card {
-            background: white;
-            padding: 32px;
+            background: var(--white);
+            padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e8dcc8;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.05), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: box-shadow 0.2s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
         }
 
         .stat-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-icon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .stat-card:hover .stat-icon::after {
-            width: 100px;
-            height: 100px;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            color: #2c2416;
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        .stat-counter {
-            display: inline-block;
-            opacity: 0;
-            animation: countUp 2s ease-out forwards;
-        }
-
-        @keyframes countUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .stat-label {
-            color: #6b5d4f;
-            font-weight: 500;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-trend {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .trend-up {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .trend-down {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e8dcc8;
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #2c2416;
-            margin-bottom: 24px;
-        }
-
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            background: #f8f9fa;
-            border: 2px solid #e8dcc8;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #2c2416;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .action-btn:hover {
-            background: #8b4513;
-            color: white;
-            border-color: #8b4513;
-        }
-
-        .action-icon {
-            font-size: 18px;
-        }
-
-        /* Recent Activity */
-        .recent-activity {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e8dcc8;
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid #f0f0f0;
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideInLeft 0.5s ease forwards;
-        }
-
-        .activity-item:nth-child(1) { animation-delay: 0.1s; }
-        .activity-item:nth-child(2) { animation-delay: 0.2s; }
-        .activity-item:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideInLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-avatar {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 20px;
+        }
+
+        .stat-card.users .stat-icon { background: var(--primary); }
+        .stat-card.admins .stat-icon { background: var(--secondary); }
+        .stat-card.books .stat-icon { background: var(--accent); }
+        .stat-card.transactions .stat-icon { background: var(--primary-light); }
+
+        .stat-trend {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-weight: 600;
-            font-size: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .activity-avatar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-text {
-            color: #2c2416;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-
-        .activity-time {
-            color: #6b5d4f;
-            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 4px;
         }
 
-        .activity-time::before {
-            content: '';
-            font-size: 12px;
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
+        .trend-up {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
         }
 
-        /* Real-time notifications */
-        .notification-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            max-width: 350px;
+        .trend-down {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
         }
 
-        .notification {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
-            transform: translateX(400px);
-            animation: slideInRight 0.5s ease forwards;
+        .stat-content {
             position: relative;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .stat-progress {
+            margin-top: 14px;
+        }
+
+        .progress-bar {
+            background: var(--gray-200);
+            height: 6px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        .notification::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            width: var(--progress);
+        }
+
+        .stat-card.users .progress-fill { background: var(--primary); }
+        .stat-card.admins .progress-fill { background: var(--secondary); }
+        .stat-card.books .progress-fill { background: var(--accent); }
+        .stat-card.transactions .progress-fill { background: var(--primary-light); }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 16px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--white);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .action-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .action-btn:nth-child(1) .action-icon { background: rgba(139, 69, 19, 0.1); color: var(--primary); }
+        .action-btn:nth-child(2) .action-icon { background: rgba(210, 105, 30, 0.1); color: var(--secondary); }
+        .action-btn:nth-child(3) .action-icon { background: rgba(40, 167, 69, 0.1); color: var(--success); }
+        .action-btn:nth-child(4) .action-icon { background: rgba(205, 133, 63, 0.1); color: var(--accent); }
+
+        /* Chart Section */
+        .chart-section {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 32px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .chart-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-title i {
+            color: var(--primary);
+        }
+
+        .chart-filters {
+            display: flex;
+            gap: 6px;
+            background: var(--gray-100);
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--gray-600);
+        }
+
+        .filter-btn.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn:hover:not(.active) {
+            color: var(--primary);
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin-top: 16px;
+        }
+
+        .chart-placeholder {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: notificationShimmer 2s ease-in-out;
+            background: var(--gray-50);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 14px;
+            gap: 10px;
         }
 
-        @keyframes slideInRight {
-            to {
-                transform: translateX(0);
-            }
+        .chart-placeholder i {
+            font-size: 40px;
+            opacity: 0.5;
         }
 
-        @keyframes notificationShimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        /* Notification Badge */
+        .notification-badge {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 340px;
+        }
+
+        .notification {
+            background: var(--white);
+            color: var(--gray-800);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid var(--success);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .notification-message {
+            font-size: 12px;
+            color: var(--gray-500);
         }
 
         .notification-close {
-            position: absolute;
-            top: 8px;
-            right: 12px;
             background: none;
             border: none;
-            color: white;
+            color: var(--gray-400);
             cursor: pointer;
-            font-size: 18px;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            font-size: 16px;
+            padding: 4px;
         }
 
         .notification-close:hover {
-            opacity: 1;
+            color: var(--gray-600);
+        }
+
+        .notification-info {
+            border-left-color: var(--primary);
+        }
+
+        .notification-info .notification-icon {
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary);
         }
 
         /* Success Message */
         .success-message {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
             color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 14px 18px;
+            border-radius: 12px;
             margin-bottom: 20px;
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .success-message::before {
-            content: "✓";
-            font-weight: bold;
-            color: #28a745;
+        .success-message i {
+            font-size: 18px;
+            color: var(--success);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
                 text-align: center;
+                padding: 0 16px;
             }
 
             .user-menu {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
 
             .main-container {
@@ -581,7 +749,12 @@
             }
 
             .page-title {
-                font-size: 28px;
+                font-size: 22px;
+            }
+
+            .page-subtitle {
+                margin-left: 0;
+                margin-top: 8px;
             }
 
             .stats-grid {
@@ -593,133 +766,37 @@
             }
 
             .chart-container {
-                height: 250px;
+                height: 240px;
+            }
+
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sidebar-toggle {
+                top: 16px;
+                left: 16px;
             }
         }
 
-        /* Interactive Charts */
-        .chart-section {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e8dcc8;
-            margin-bottom: 40px;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .chart-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2c2416;
-        }
-
-        .chart-filters {
-            display: flex;
-            gap: 8px;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid #e8dcc8;
-            background: white;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background: #8b4513;
-            color: white;
-            border-color: #8b4513;
-        }
-
-        .filter-btn:hover:not(.active) {
-            background: #f8f9fa;
-            border-color: #8b4513;
-        }
-
-        .chart-container {
-            height: 300px;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .chart-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f8f9fa, #e8dcc8);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6b5d4f;
-            font-size: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-placeholder::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.1), transparent);
-            animation: chartShimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes chartShimmer {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* Animated Progress Bars */
-        .progress-bar {
-            background: #e8dcc8;
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
             height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
             border-radius: 4px;
-            overflow: hidden;
-            margin: 8px 0;
         }
 
-        .progress-fill-animated {
-            height: 100%;
-            background: linear-gradient(90deg, #8b4513, #a0522d);
-            border-radius: 4px;
-            width: 0%;
-            animation: progressFill 2s ease-out forwards;
-        }
-
-        @keyframes progressFill {
-            to {
-                width: var(--progress);
-            }
-        }
-
-        /* Pulsing Elements */
-        .pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.8;
-                transform: scale(1.02);
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -731,86 +808,30 @@
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const body = document.body;
 
-            function toggleSidebar() {
-                sidebar.classList.toggle('open');
-                sidebarOverlay.classList.toggle('show');
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('show');
+                sidebarToggle.style.opacity = '0';
+                sidebarToggle.style.visibility = 'hidden';
                 if (window.innerWidth > 768) {
-                    body.classList.toggle('sidebar-open');
+                    body.classList.add('sidebar-open');
                 }
             }
 
-            sidebarToggle.addEventListener('click', toggleSidebar);
-            sidebarOverlay.addEventListener('click', toggleSidebar);
-
-            // Animated counter for stats
-            function animateCounter(element, target) {
-                let current = 0;
-                const increment = target / 100;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        element.textContent = target;
-                        clearInterval(timer);
-                    } else {
-                        element.textContent = Math.floor(current);
-                    }
-                }, 20);
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('show');
+                sidebarToggle.style.opacity = '1';
+                sidebarToggle.style.visibility = 'visible';
+                body.classList.remove('sidebar-open');
             }
 
-            // Trigger counter animations when cards come into view
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px 0px -50px 0px'
-            };
+            sidebarToggle.addEventListener('click', openSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target.querySelector('.stat-counter');
-                        if (counter && !counter.classList.contains('animated')) {
-                            counter.classList.add('animated');
-                            const target = parseInt(counter.textContent);
-                            counter.textContent = '0';
-                            setTimeout(() => animateCounter(counter, target), 500);
-                        }
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.stat-card').forEach(card => {
-                observer.observe(card);
-            });
-
-            // Real-time notifications
-            function showNotification(message, type = 'success') {
-                const notificationBadge = document.getElementById('notificationBadge');
-                const notification = document.createElement('div');
-                notification.className = `notification notification-${type}`;
-
-                notification.innerHTML = `
-                    <div>${message}</div>
-                    <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
-                `;
-
-                notificationBadge.appendChild(notification);
-
-                // Auto remove after 5 seconds
-                setTimeout(() => {
-                    if (notification.parentElement) {
-                        notification.style.animation = 'slideOutRight 0.5s ease forwards';
-                        setTimeout(() => notification.remove(), 500);
-                    }
-                }, 5000);
-            }
-
-            // Simulate real-time updates
-            setTimeout(() => {
-                showNotification('Dashboard berhasil dimuat!', 'success');
-            }, 2000);
-
-            setTimeout(() => {
-                showNotification('Data terbaru telah disinkronisasi', 'info');
-            }, 5000);
+            // Close button inside sidebar
+            const sidebarClose = document.getElementById('sidebarClose');
+            sidebarClose.addEventListener('click', closeSidebar);
 
             // Chart functionality
             let currentChart = null;
@@ -825,7 +846,6 @@
             });
 
             function updateChart(period) {
-                // Simulate chart data based on period
                 const data = {
                     '7d': {
                         labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
@@ -848,7 +868,6 @@
                 const ctx = document.getElementById('activityChart');
                 const placeholder = document.getElementById('chartPlaceholder');
 
-                // Check if Chart.js is loaded
                 if (typeof Chart === 'undefined') {
                     ctx.style.display = 'none';
                     placeholder.style.display = 'flex';
@@ -864,6 +883,11 @@
                     currentChart.destroy();
                 }
 
+                // Create gradient with brown color
+                const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, 'rgba(139, 69, 19, 0.2)');
+                gradient.addColorStop(1, 'rgba(139, 69, 19, 0.01)');
+
                 currentChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -872,15 +896,15 @@
                             label: 'Aktivitas',
                             data: data.data,
                             borderColor: '#8b4513',
-                            backgroundColor: 'rgba(139, 69, 19, 0.1)',
-                            borderWidth: 3,
+                            backgroundColor: gradient,
+                            borderWidth: 2,
                             fill: true,
                             tension: 0.4,
                             pointBackgroundColor: '#8b4513',
                             pointBorderColor: '#fff',
                             pointBorderWidth: 2,
-                            pointRadius: 6,
-                            pointHoverRadius: 8
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         }]
                     },
                     options: {
@@ -889,66 +913,51 @@
                         plugins: {
                             legend: {
                                 display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#2c2416',
+                                bodyColor: '#6b5d4f',
+                                borderColor: '#e8dcc8',
+                                borderWidth: 1,
+                                cornerRadius: 8,
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return ' ' + context.parsed.y + ' aktivitas';
+                                    }
+                                }
                             }
                         },
                         scales: {
                             y: {
                                 beginAtZero: true,
                                 grid: {
-                                    color: 'rgba(139, 69, 19, 0.1)'
+                                    color: 'rgba(139, 69, 19, 0.08)',
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    color: '#6b5d4f',
+                                    font: { size: 12 }
                                 }
                             },
                             x: {
                                 grid: {
                                     display: false
+                                },
+                                ticks: {
+                                    color: '#6b5d4f',
+                                    font: { size: 12 }
                                 }
                             }
-                        },
-                        elements: {
-                            line: {
-                                borderCapStyle: 'round'
-                            }
-                        },
-                        animation: {
-                            duration: 2000,
-                            easing: 'easeOutQuart'
                         }
                     }
                 });
             }
 
-            // Initialize chart with default data
+            // Initialize chart
             updateChart('7d');
-
-            // Add smooth scrolling to all internal links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
         });
-
-        // Add CSS animation keyframes for notifications
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideOutRight {
-                to {
-                    transform: translateX(400px);
-                    opacity: 0;
-                }
-            }
-            .notification-info {
-                background: linear-gradient(135deg, #17a2b8, #20c997);
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </head>
 <body>
@@ -958,47 +967,69 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-title">BookHaven</div>
-            <div class="sidebar-subtitle">Admin Panel</div>
+            <div class="sidebar-brand">
+                <div class="sidebar-title"><i class="fas fa-book-open"></i> BookHaven</div>
+                <div class="sidebar-subtitle">Admin Control Panel</div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <nav class="sidebar-menu">
-            <a href="{{ route('admin.dashboard') }}" class="menu-item active">
-                <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
-                <span>Dashboard</span>
-            </a>
-            <a href="{{ url('/admin/user') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-users"></i></span>
-                <span>Kelola Pengguna</span>
-            </a>
-            <a href="{{ url('/admin/buku') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-book"></i></span>
-                <span>Kelola Buku</span>
-            </a>
-            <a href="{{ url('/admin/kategori') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-tags"></i></span>
-                <span>Kelola Kategori</span>
-            </a>
-            <a href="{{ url('/admin/pesanan') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-clipboard-list"></i></span>
-                <span>Kelola Pesanan</span>
-            </a>
+            <div class="menu-section">
+                <div class="menu-section-title">Menu Utama</div>
+                <a href="{{ route('admin.dashboard') }}" class="menu-item active">
+                    <span class="menu-icon"><i class="fas fa-th-large"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Manajemen</div>
+                <a href="{{ url('/admin/user') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-users"></i></span>
+                    <span class="menu-text">Kelola Pengguna</span>
+                </a>
+                <a href="{{ url('/admin/buku') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-book"></i></span>
+                    <span class="menu-text">Kelola Buku</span>
+                </a>
+                <a href="{{ url('/admin/kategori') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-folder"></i></span>
+                    <span class="menu-text">Kelola Kategori</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Transaksi</div>
+                <a href="{{ url('/admin/pesanan') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-shopping-bag"></i></span>
+                    <span class="menu-text">Kelola Pesanan</span>
+                </a>
+            </div>
         </nav>
     </div>
 
     <!-- Sidebar Overlay for mobile -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Notification Badge -->
-    <div class="notification-badge" id="notificationBadge"></div>
-
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <div class="logo">BookHaven Admin</div>
+            <div class="logo">
+                <i class="fas fa-book-reader"></i>
+                BookHaven Admin
+            </div>
             <div class="user-menu">
-                <span class="welcome-text">Selamat datang, {{ $user->Nama_Lengkap }}</span>
-                <span class="role-badge">{{ $user->Role }}</span>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        {{ strtoupper(substr($user->Nama_Lengkap, 0, 1)) }}
+                    </div>
+                    <div class="user-details">
+                        <span class="welcome-text">{{ $user->Nama_Lengkap }}</span>
+                        <span class="role-badge">{{ $user->Role }}</span>
+                    </div>
+                </div>
                 <a href="/logout" class="logout-btn" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-out-alt"></i>
                     Keluar
                 </a>
             </div>
@@ -1013,60 +1044,113 @@
     <main class="main-container">
         @if(session('success'))
             <div class="success-message">
+                <i class="fas fa-check-circle"></i>
                 {{ session('success') }}
             </div>
         @endif
 
-        <h1 class="page-title">Dashboard Admin</h1>
-        <p class="page-subtitle">Kelola sistem BookHaven dengan mudah dan efisien</p>
+        <div class="page-header">
+            <h1 class="page-title">
+                <div class="page-title-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                Dashboard
+            </h1>
+            <p class="page-subtitle">Selamat datang kembali! Berikut ringkasan aktivitas sistem BookHaven Anda.</p>
+        </div>
 
         <!-- Statistics -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-trend trend-up">+12%</div>
-                <div class="stat-icon"><i class="fas fa-users"></i></div>
-                <div class="stat-number"><span class="stat-counter">{{ $totalUsers }}</span></div>
-                <div class="stat-label">Total Pengguna</div>
-                <div class="progress-bar">
-                    <div class="progress-fill-animated" style="--progress: 75%"></div>
+            <div class="stat-card users">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 12%
+                    </div>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ $totalUsers }}</div>
+                    <div class="stat-label">Total Pengguna</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 75%"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-trend trend-up">+5%</div>
-                <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
-                <div class="stat-number"><span class="stat-counter">{{ $totalAdmins }}</span></div>
-                <div class="stat-label">Total Admin</div>
-                <div class="progress-bar">
-                    <div class="progress-fill-animated" style="--progress: 60%"></div>
+            <div class="stat-card admins">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 5%
+                    </div>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">{{ $totalAdmins }}</div>
+                    <div class="stat-label">Total Admin</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 60%"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-trend trend-up">+28%</div>
-                <div class="stat-icon"><i class="fas fa-book"></i></div>
-                <div class="stat-number"><span class="stat-counter">0</span></div>
-                <div class="stat-label">Total Buku</div>
-                <div class="progress-bar">
-                    <div class="progress-fill-animated" style="--progress: 40%"></div>
+            <div class="stat-card books">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> 28%
+                    </div>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Total Buku</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 40%"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-trend trend-down">-3%</div>
-                <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
-                <div class="stat-number"><span class="stat-counter">0</span></div>
-                <div class="stat-label">Total Transaksi</div>
-                <div class="progress-bar">
-                    <div class="progress-fill-animated" style="--progress: 85%"></div>
+            <div class="stat-card transactions">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="stat-trend trend-down">
+                        <i class="fas fa-arrow-down"></i> 3%
+                    </div>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Total Transaksi</div>
+                </div>
+                <div class="stat-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 85%"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        
+
         <!-- Interactive Chart Section -->
         <div class="chart-section">
             <div class="chart-header">
-                <h2 class="chart-title">Aktivitas Sistem</h2>
+                <h2 class="chart-title">
+                    <i class="fas fa-chart-line"></i>
+                    Aktivitas Sistem
+                </h2>
                 <div class="chart-filters">
                     <button class="filter-btn active" data-period="7d">7 Hari</button>
                     <button class="filter-btn" data-period="30d">30 Hari</button>
@@ -1076,7 +1160,8 @@
             <div class="chart-container">
                 <canvas id="activityChart"></canvas>
                 <div class="chart-placeholder" id="chartPlaceholder" style="display: none;">
-                    <i class="fas fa-chart-line"></i> Chart akan dimuat di sini...
+                    <i class="fas fa-chart-area"></i>
+                    <span>Memuat grafik...</span>
                 </div>
             </div>
         </div>

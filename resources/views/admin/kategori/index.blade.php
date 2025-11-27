@@ -5,9 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Kategori - BookHaven</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|playfair-display:700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700|poppins:600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #8b4513;
+            --primary-dark: #6d3610;
+            --primary-light: #a0522d;
+            --secondary: #d2691e;
+            --accent: #cd853f;
+            --success: #28a745;
+            --warning: #f59e0b;
+            --danger: #dc3545;
+            --dark: #2c2416;
+            --gray-900: #1a1a1a;
+            --gray-800: #2c2416;
+            --gray-700: #4a3f35;
+            --gray-600: #6b5d4f;
+            --gray-500: #8b7355;
+            --gray-400: #a89985;
+            --gray-300: #d4c4b0;
+            --gray-200: #e8dcc8;
+            --gray-100: #f5f0e8;
+            --gray-50: #faf8f5;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,10 +43,11 @@
         }
 
         body {
-            font-family: 'Instrument Sans', sans-serif;
-            background: #f8f9fa;
-            color: #2c2416;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
             line-height: 1.6;
+            min-height: 100vh;
             transition: margin-left 0.3s ease;
         }
 
@@ -28,19 +57,22 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #8b4513;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 12px;
+            padding: 12px 14px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
         }
 
         .sidebar-toggle:hover {
-            background: #6d3610;
-            transform: scale(1.05);
+            background: var(--primary-dark);
+        }
+
+        .sidebar-toggle i {
+            font-size: 18px;
         }
 
         /* Collapsible Sidebar */
@@ -50,8 +82,8 @@
             left: -280px;
             width: 280px;
             height: 100vh;
-            background: white;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
             z-index: 1000;
             transition: left 0.3s ease;
             overflow-y: auto;
@@ -62,55 +94,101 @@
         }
 
         .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid #e8dcc8;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
+            padding: 24px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-brand {
+            flex: 1;
         }
 
         .sidebar-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            font-size: 20px;
         }
 
         .sidebar-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .sidebar-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .sidebar-menu {
-            padding: 20px 0;
+            padding: 16px 12px;
+        }
+
+        .menu-section {
+            margin-bottom: 8px;
+        }
+
+        .menu-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 14px 8px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 16px;
             text-decoration: none;
-            color: #2c2416;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            border-radius: 10px;
+            margin: 2px 0;
+            font-weight: 500;
         }
 
         .menu-item:hover {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: var(--gray-100);
+            color: var(--primary);
         }
 
         .menu-item.active {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .menu-icon {
             margin-right: 12px;
-            font-size: 18px;
+            font-size: 16px;
             width: 20px;
+            text-align: center;
         }
 
         /* Overlay for mobile */
@@ -120,7 +198,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -137,135 +215,211 @@
             margin-left: 280px;
         }
 
-        /* Header/Navbar */
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 998;
+        @media (max-width: 768px) {
+            body.sidebar-open {
+                margin-left: 0;
+            }
         }
 
-        .navbar-container {
-            max-width: 1200px;
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .header-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .navbar-logo {
-            font-family: 'Playfair Display', serif;
+        .logo {
+            font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: #8b4513;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gray-50);
+            padding: 8px 16px 8px 8px;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-details {
+            line-height: 1.3;
         }
 
         .welcome-text {
-            font-weight: 500;
-            color: #2c2416;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 14px;
+            display: block;
         }
 
         .role-badge {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
-            padding: 4px 12px;
+            padding: 2px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         .logout-btn {
-            color: #dc3545;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-500);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 10px 16px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
         }
 
         .logout-btn:hover {
-            color: #a71e2a;
+            color: var(--danger);
+            background: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
         }
 
-        .container {
-            max-width: 1200px;
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
-            padding-top: 150px; /* Account for fixed navbar + sidebar toggle button */
+            padding: 32px 24px;
         }
 
-        .header {
+        .page-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 24px 32px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            align-items: flex-start;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            color: #2c2416;
+        .page-header-info {
+            flex: 1;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
             margin-bottom: 8px;
-        }
-
-        .header p {
-            color: #6b5d4f;
-            margin: 0;
-        }
-
-        .header-actions {
             display: flex;
-            gap: 16px;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-title-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .page-subtitle {
+            color: var(--gray-500);
+            font-size: 15px;
+            margin-left: 56px;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 12px;
             align-items: center;
         }
 
+        /* Buttons */
         .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
         }
 
         .btn-primary {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
         }
 
         .btn-primary:hover {
-            background: #6d3610;
-            transform: translateY(-2px);
+            background: var(--primary-dark);
         }
 
         .btn-secondary {
-            background: #6c757d;
-            color: white;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
         }
 
         .btn-secondary:hover {
-            background: #545b62;
+            background: var(--gray-200);
         }
 
         .btn-danger {
-            background: #dc3545;
+            background: var(--danger);
             color: white;
         }
 
@@ -274,63 +428,118 @@
         }
 
         .btn-sm {
-            padding: 8px 16px;
-            font-size: 14px;
+            padding: 8px 14px;
+            font-size: 13px;
+            border-radius: 8px;
         }
 
+        /* Search Section */
         .search-section {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
+            background: var(--white);
+            padding: 20px 24px;
+            border-radius: 16px;
             margin-bottom: 24px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
         }
 
         .search-form {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
 
-        .search-input {
+        .search-input-wrapper {
             flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e8dcc8;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+            position: relative;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s ease;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: #8b4513;
+            border-color: var(--primary);
         }
 
+        /* Success/Error Messages */
+        .success-message {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+            color: #155724;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-message i {
+            font-size: 18px;
+            color: var(--success);
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #721c24;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-message i {
+            font-size: 18px;
+            color: var(--danger);
+        }
+
+        /* Categories Grid */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 24px;
             margin-bottom: 32px;
         }
 
         .category-card {
-            background: white;
+            background: var(--white);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border: 1px solid #e8dcc8;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
         }
 
         .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         .category-icon {
             width: 100%;
             height: 120px;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -345,59 +554,92 @@
         }
 
         .category-name {
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
             font-weight: 600;
-            color: #2c2416;
+            color: var(--gray-900);
             margin-bottom: 12px;
         }
 
-        .category-stats {
-            font-size: 14px;
-            color: #6b5d4f;
-            margin-bottom: 4px;
+        .category-meta {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .category-stats strong {
-            color: #2c2416;
+        .category-meta i {
+            width: 16px;
+            color: var(--gray-400);
         }
 
         .book-count {
-            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
             font-weight: 600;
-            color: #8b4513;
-            margin: 12px 0;
+            color: var(--primary);
+            background: rgba(139, 69, 19, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin: 12px 0 16px;
         }
 
         .category-actions {
             display: flex;
             gap: 8px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
         }
 
-        .no-categories {
+        .category-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* Empty State */
+        .empty-state {
             text-align: center;
             padding: 60px 20px;
-            background: white;
+            background: var(--white);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
         }
 
-        .no-categories i {
-            font-size: 64px;
-            color: #8b4513;
-            margin-bottom: 20px;
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
         }
 
-        .no-categories h3 {
-            font-size: 24px;
-            color: #2c2416;
-            margin-bottom: 12px;
+        .empty-icon i {
+            font-size: 32px;
+            color: var(--gray-400);
         }
 
-        .no-categories p {
-            color: #6b5d4f;
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--gray-500);
             margin-bottom: 24px;
         }
 
+        /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
@@ -405,93 +647,92 @@
             margin-top: 32px;
         }
 
-        .pagination a, .pagination span {
-            padding: 12px 16px;
-            border: 1px solid #e8dcc8;
+        .pagination a,
+        .pagination span {
+            padding: 10px 16px;
+            border: 1px solid var(--gray-200);
             text-decoration: none;
-            color: #2c2416;
+            color: var(--gray-600);
             border-radius: 8px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
         .pagination a:hover {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
-            border-color: #8b4513;
+            border-color: var(--primary);
         }
 
         .pagination .current {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
-            border-color: #8b4513;
+            border-color: var(--primary);
         }
 
-        .alert {
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .pagination .disabled {
+            color: var(--gray-300);
+            cursor: not-allowed;
         }
 
-        .alert-success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-        }
-
-        .alert-success::before {
-            content: "✓";
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-        }
-
-        .alert-error::before {
-            content: "⚠";
-            font-weight: bold;
-            color: #dc3545;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            body.sidebar-open {
-                margin-left: 0;
-            }
-
-            .container {
-                padding: 150px 16px 16px 16px;
-            }
-
-            .navbar-container {
+            .header-container {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
                 text-align: center;
+                padding: 0 16px;
             }
 
             .user-menu {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
 
-            .header {
+            .main-container {
+                padding: 20px 16px;
+            }
+
+            .page-header {
                 flex-direction: column;
-                gap: 16px;
-                text-align: center;
             }
 
-            .header-actions {
+            .page-title {
+                font-size: 22px;
+            }
+
+            .page-subtitle {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            .page-actions {
                 width: 100%;
+            }
+
+            .page-actions .btn {
+                flex: 1;
                 justify-content: center;
             }
 
             .search-form {
                 flex-direction: column;
+            }
+
+            .search-input-wrapper {
+                width: 100%;
+            }
+
+            .search-form .btn {
+                width: 100%;
+                justify-content: center;
             }
 
             .categories-grid {
@@ -501,26 +742,61 @@
             .category-actions {
                 flex-direction: column;
             }
+
+            .sidebar-toggle {
+                top: 16px;
+                left: 16px;
+            }
+        }
+
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Sidebar functionality
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarClose = document.getElementById('sidebarClose');
             const body = document.body;
 
-            function toggleSidebar() {
-                sidebar.classList.toggle('open');
-                sidebarOverlay.classList.toggle('show');
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('show');
+                sidebarToggle.style.opacity = '0';
+                sidebarToggle.style.visibility = 'hidden';
                 if (window.innerWidth > 768) {
-                    body.classList.toggle('sidebar-open');
+                    body.classList.add('sidebar-open');
                 }
             }
 
-            sidebarToggle.addEventListener('click', toggleSidebar);
-            sidebarOverlay.addEventListener('click', toggleSidebar);
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('show');
+                sidebarToggle.style.opacity = '1';
+                sidebarToggle.style.visibility = 'visible';
+                body.classList.remove('sidebar-open');
+            }
+
+            if (sidebarToggle) sidebarToggle.addEventListener('click', openSidebar);
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
         });
     </script>
 </head>
@@ -531,44 +807,69 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-title">BookHaven</div>
-            <div class="sidebar-subtitle">Admin Panel</div>
+            <div class="sidebar-brand">
+                <div class="sidebar-title"><i class="fas fa-book-open"></i> BookHaven</div>
+                <div class="sidebar-subtitle">Admin Control Panel</div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <nav class="sidebar-menu">
-            <a href="{{ route('admin.dashboard') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
-                <span>Dashboard</span>
-            </a>
-            <a href="{{ url('/admin/user') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-users"></i></span>
-                <span>Kelola Pengguna</span>
-            </a>
-            <a href="{{ route('admin.buku.index') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-book"></i></span>
-                <span>Kelola Buku</span>
-            </a>
-            <a href="{{ route('admin.kategori.index') }}" class="menu-item active">
-                <span class="menu-icon"><i class="fas fa-tags"></i></span>
-                <span>Kelola Kategori</span>
-            </a>
-            <a href="{{ url('/admin/pesanan') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-clipboard-list"></i></span>
-                <span>Kelola Pesanan</span>
-            </a>
+            <div class="menu-section">
+                <div class="menu-section-title">Menu Utama</div>
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-th-large"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Manajemen</div>
+                <a href="{{ url('/admin/user') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-users"></i></span>
+                    <span class="menu-text">Kelola Pengguna</span>
+                </a>
+                <a href="{{ route('admin.buku.index') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-book"></i></span>
+                    <span class="menu-text">Kelola Buku</span>
+                </a>
+                <a href="{{ route('admin.kategori.index') }}" class="menu-item active">
+                    <span class="menu-icon"><i class="fas fa-folder"></i></span>
+                    <span class="menu-text">Kelola Kategori</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Transaksi</div>
+                <a href="{{ url('/admin/pesanan') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-shopping-bag"></i></span>
+                    <span class="menu-text">Kelola Pesanan</span>
+                </a>
+            </div>
         </nav>
     </div>
 
     <!-- Sidebar Overlay for mobile -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Header/Navbar -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">BookHaven Admin</div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-book-reader"></i>
+                BookHaven Admin
+            </div>
             <div class="user-menu">
-                <span class="welcome-text">Selamat datang, {{ auth()->user()->Nama_Lengkap }}</span>
-                <span class="role-badge">{{ auth()->user()->Role }}</span>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(auth()->user()->Nama_Lengkap, 0, 1)) }}
+                    </div>
+                    <div class="user-details">
+                        <span class="welcome-text">{{ auth()->user()->Nama_Lengkap }}</span>
+                        <span class="role-badge">{{ auth()->user()->Role }}</span>
+                    </div>
+                </div>
                 <a href="/logout" class="logout-btn" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-out-alt"></i>
                     Keluar
                 </a>
             </div>
@@ -579,25 +880,33 @@
         @csrf
     </form>
 
-    <div class="container">
+    <!-- Main Content -->
+    <main class="main-container">
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
                 {{ session('success') }}
             </div>
         @endif
 
         @if(session('error'))
-            <div class="alert alert-error">
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
                 {{ session('error') }}
             </div>
         @endif
 
-        <div class="header">
-            <div>
-                <h1>Kelola Kategori</h1>
-                <p>Kelola kategori buku di BookHaven</p>
+        <div class="page-header">
+            <div class="page-header-info">
+                <h1 class="page-title">
+                    <div class="page-title-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    Kelola Kategori
+                </h1>
+                <p class="page-subtitle">Kelola kategori buku di BookHaven</p>
             </div>
-            <div class="header-actions">
+            <div class="page-actions">
                 <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Tambah Kategori Baru
@@ -605,15 +914,13 @@
             </div>
         </div>
 
+        <!-- Search Section -->
         <div class="search-section">
             <form method="GET" action="{{ route('admin.kategori.index') }}" class="search-form">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Cari kategori..."
-                    value="{{ $search }}"
-                    class="search-input"
-                >
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" name="search" placeholder="Cari kategori..." value="{{ $search }}" class="search-input">
+                </div>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-search"></i>
                     Cari
@@ -636,28 +943,30 @@
                         </div>
                         <div class="category-info">
                             <h3 class="category-name">{{ $category->Nama_Kategori }}</h3>
-                            <div class="category-stats">
-                                <strong>Dibuat:</strong> {{ $category->created_at->format('d M Y, H:i') }}
+                            <div class="category-meta">
+                                <i class="fas fa-calendar"></i>
+                                <span>Dibuat: {{ $category->created_at->format('d M Y, H:i') }}</span>
                             </div>
-                            <div class="category-stats">
-                                <strong>Terakhir Diubah:</strong> {{ $category->updated_at->format('d M Y, H:i') }}
+                            <div class="category-meta">
+                                <i class="fas fa-clock"></i>
+                                <span>Diubah: {{ $category->updated_at->format('d M Y, H:i') }}</span>
                             </div>
-                            <div class="book-count">{{ $category->buku_count }} Buku</div>
+                            <div class="book-count">
+                                <i class="fas fa-book"></i>
+                                {{ $category->buku_count }} Buku
+                            </div>
                             <div class="category-actions">
                                 <a href="{{ route('admin.kategori.show', $category->id_kategori) }}" class="btn btn-secondary btn-sm">
                                     <i class="fas fa-eye"></i>
-                                    Lihat
                                 </a>
                                 <a href="{{ route('admin.kategori.edit', $category->id_kategori) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i>
-                                    Edit
                                 </a>
-                                <form method="POST" action="{{ route('admin.kategori.destroy', $category->id_kategori) }}" style="display: inline;">
+                                <form method="POST" action="{{ route('admin.kategori.destroy', $category->id_kategori) }}" style="display: inline; flex: 1;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini? Kategori yang memiliki buku tidak dapat dihapus.')">
+                                    <button type="submit" class="btn btn-danger btn-sm" style="width: 100%;" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori ini? Kategori yang memiliki buku tidak dapat dihapus.')">
                                         <i class="fas fa-trash"></i>
-                                        Hapus
                                     </button>
                                 </form>
                             </div>
@@ -668,14 +977,12 @@
 
             @if ($categories->hasPages())
                 <nav class="pagination" role="navigation" aria-label="Pagination">
-                    {{-- Previous Page Link --}}
                     @if ($categories->onFirstPage())
-                        <span class="disabled" aria-disabled="true">&laquo; Sebelumnya</span>
+                        <span class="disabled">&laquo;</span>
                     @else
-                        <a href="{{ $categories->previousPageUrl() }}" rel="prev">&laquo; Sebelumnya</a>
+                        <a href="{{ $categories->previousPageUrl() }}" rel="prev">&laquo;</a>
                     @endif
 
-                    {{-- Pagination Elements --}}
                     @foreach (range(1, $categories->lastPage()) as $page)
                         @if ($page == $categories->currentPage())
                             <span class="current">{{ $page }}</span>
@@ -684,17 +991,18 @@
                         @endif
                     @endforeach
 
-                    {{-- Next Page Link --}}
                     @if ($categories->hasMorePages())
-                        <a href="{{ $categories->nextPageUrl() }}" rel="next">Selanjutnya &raquo;</a>
+                        <a href="{{ $categories->nextPageUrl() }}" rel="next">&raquo;</a>
                     @else
-                        <span class="disabled" aria-disabled="true">Selanjutnya &raquo;</span>
+                        <span class="disabled">&raquo;</span>
                     @endif
                 </nav>
             @endif
         @else
-            <div class="no-categories">
-                <i class="fas fa-tags"></i>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
                 <h3>Belum ada kategori</h3>
                 <p>
                     @if($search)
@@ -709,6 +1017,6 @@
                 </a>
             </div>
         @endif
-    </div>
+    </main>
 </body>
 </html>

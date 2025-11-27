@@ -5,9 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Pesanan - BookHaven Admin</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600|playfair-display:700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700|poppins:600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #8b4513;
+            --primary-dark: #6d3610;
+            --primary-light: #a0522d;
+            --secondary: #d2691e;
+            --accent: #cd853f;
+            --success: #28a745;
+            --warning: #f59e0b;
+            --danger: #dc3545;
+            --info: #3b82f6;
+            --purple: #8b5cf6;
+            --dark: #2c2416;
+            --gray-900: #1a1a1a;
+            --gray-800: #2c2416;
+            --gray-700: #4a3f35;
+            --gray-600: #6b5d4f;
+            --gray-500: #8b7355;
+            --gray-400: #a89985;
+            --gray-300: #d4c4b0;
+            --gray-200: #e8dcc8;
+            --gray-100: #f5f0e8;
+            --gray-50: #faf8f5;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,10 +45,11 @@
         }
 
         body {
-            font-family: 'Instrument Sans', sans-serif;
-            background: #f8f9fa;
-            color: #2c2416;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
             line-height: 1.6;
+            min-height: 100vh;
             transition: margin-left 0.3s ease;
         }
 
@@ -28,19 +59,22 @@
             top: 20px;
             left: 20px;
             z-index: 1001;
-            background: #8b4513;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 10px 12px;
+            border-radius: 12px;
+            padding: 12px 14px;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
         }
 
         .sidebar-toggle:hover {
-            background: #6d3610;
-            transform: scale(1.05);
+            background: var(--primary-dark);
+        }
+
+        .sidebar-toggle i {
+            font-size: 18px;
         }
 
         /* Collapsible Sidebar */
@@ -50,8 +84,8 @@
             left: -280px;
             width: 280px;
             height: 100vh;
-            background: white;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
             z-index: 1000;
             transition: left 0.3s ease;
             overflow-y: auto;
@@ -62,55 +96,101 @@
         }
 
         .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid #e8dcc8;
-            background: linear-gradient(135deg, #8b4513, #a0522d);
+            padding: 24px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-brand {
+            flex: 1;
         }
 
         .sidebar-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            font-size: 20px;
         }
 
         .sidebar-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .sidebar-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .sidebar-menu {
-            padding: 20px 0;
+            padding: 16px 12px;
+        }
+
+        .menu-section {
+            margin-bottom: 8px;
+        }
+
+        .menu-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 14px 8px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 16px;
             text-decoration: none;
-            color: #2c2416;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            border-radius: 10px;
+            margin: 2px 0;
+            font-weight: 500;
         }
 
         .menu-item:hover {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: var(--gray-100);
+            color: var(--primary);
         }
 
         .menu-item.active {
-            background: #f8f9fa;
-            border-left-color: #8b4513;
-            color: #8b4513;
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .menu-icon {
             margin-right: 12px;
-            font-size: 18px;
+            font-size: 16px;
             width: 20px;
+            text-align: center;
         }
 
         /* Overlay for mobile */
@@ -120,7 +200,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -145,196 +225,299 @@
 
         /* Header */
         .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: #8b4513;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 22px;
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gray-50);
+            padding: 8px 16px 8px 8px;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-details {
+            line-height: 1.3;
         }
 
         .welcome-text {
-            font-weight: 500;
-            color: #2c2416;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 14px;
+            display: block;
         }
 
         .role-badge {
-            background: #8b4513;
+            background: var(--primary);
             color: white;
-            padding: 4px 12px;
+            padding: 2px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         .logout-btn {
-            color: #dc3545;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-500);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 10px 16px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
         }
 
         .logout-btn:hover {
-            color: #a71e2a;
+            color: var(--danger);
+            background: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
         }
 
-        .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
-            color: white;
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
-            transform: translateY(-1px);
+        .page-header-info {
+            flex: 1;
         }
 
-        /* Alert Messages */
-        .alert {
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin: 24px 0;
-            font-size: 14px;
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .alert-success {
-            background: #f0fdf4;
-            border: 1px solid #22c55e;
-            color: #15803d;
+        .page-title-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
         }
 
-        .alert-error {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            color: #991b1b;
+        .page-subtitle {
+            color: var(--gray-500);
+            font-size: 15px;
+            margin-left: 56px;
         }
 
-        /* Main Content */
-        .main-content {
-            padding: 48px 0;
-            min-height: 80vh;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px;
+        /* Success/Error Messages */
+        .success-message {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+            color: #155724;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            color: #2c2416;
-            margin-bottom: 32px;
+        .success-message i {
+            font-size: 18px;
+            color: var(--success);
         }
 
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #721c24;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-message i {
+            font-size: 18px;
+            color: var(--danger);
+        }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 32px;
         }
 
         .stat-card {
-            background: white;
+            background: var(--white);
             padding: 24px;
-            border-radius: 12px;
-            border: 1px solid #e7e5e4;
-            box-shadow: 0 2px 10px rgba(120, 53, 15, 0.06);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
-            font-size: 24px;
+            font-size: 22px;
             color: white;
-        }
-
-        .stat-icon.pending {
-            background: #fbbf24;
-        }
-
-        .stat-icon.success {
-            background: #22c55e;
-        }
-
-        .stat-icon.processing {
-            background: #3b82f6;
+            flex-shrink: 0;
         }
 
         .stat-icon.total {
-            background: #78350f;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+
+        .stat-icon.pending {
+            background: linear-gradient(135deg, var(--warning), #fbbf24);
+        }
+
+        .stat-icon.processing {
+            background: linear-gradient(135deg, var(--info), #60a5fa);
+        }
+
+        .stat-icon.success {
+            background: linear-gradient(135deg, var(--success), #34d399);
+        }
+
+        .stat-content {
+            flex: 1;
         }
 
         .stat-value {
-            font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
             font-weight: 700;
-            color: #2c2416;
+            color: var(--gray-900);
+            line-height: 1.2;
             margin-bottom: 4px;
         }
 
         .stat-label {
             font-size: 14px;
-            color: #78716c;
+            color: var(--gray-500);
+            font-weight: 500;
         }
 
+        /* Orders Container */
         .orders-container {
-            background: white;
+            background: var(--white);
             border-radius: 16px;
-            border: 1px solid #e8dcc8;
-            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.08);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
             overflow: hidden;
         }
 
         .table-header {
-            background: #f8fafc;
             padding: 20px 24px;
-            border-bottom: 1px solid #e8dcc8;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .table-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            color: #2c2416;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        .table-title i {
+            color: var(--primary);
+        }
+
+        /* Orders Table */
         .orders-table {
             width: 100%;
             border-collapse: collapse;
@@ -344,93 +527,252 @@
         .orders-table td {
             padding: 16px 24px;
             text-align: left;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid var(--gray-100);
         }
 
         .orders-table th {
-            background: #f8fafc;
+            background: var(--gray-50);
             font-weight: 600;
-            color: #374151;
-            font-size: 14px;
+            color: var(--gray-700);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .orders-table td {
             font-size: 14px;
+            color: var(--gray-700);
         }
 
         .orders-table tr:hover {
-            background: #fafaf9;
+            background: var(--gray-50);
         }
 
+        .orders-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .customer-email {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .order-total {
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Status Badges */
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            text-align: center;
-            display: inline-block;
-            min-width: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .status-pending {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(245, 158, 11, 0.1);
+            color: #b45309;
         }
 
         .status-success {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(40, 167, 69, 0.1);
+            color: #15803d;
         }
 
         .status-processing {
-            background: #dbeafe;
-            color: #1e40af;
+            background: rgba(59, 130, 246, 0.1);
+            color: #1d4ed8;
         }
 
         .status-shipped {
-            background: #e0e7ff;
-            color: #3730a3;
+            background: rgba(139, 92, 246, 0.1);
+            color: #6d28d9;
         }
 
         .status-completed {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(40, 167, 69, 0.1);
+            color: #15803d;
         }
 
         .status-rejected {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(220, 53, 69, 0.1);
+            color: #b91c1c;
         }
 
-        .btn-small {
-            padding: 6px 12px;
+        /* Buttons */
+        .btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
             font-size: 12px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
+        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 64px 24px;
+            padding: 60px 20px;
         }
 
         .empty-icon {
-            font-size: 48px;
-            color: #d1d5db;
-            margin-bottom: 16px;
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
         }
 
-        .empty-title {
+        .empty-icon i {
+            font-size: 32px;
+            color: var(--gray-400);
+        }
+
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
             font-size: 20px;
             font-weight: 600;
-            color: #374151;
+            color: var(--gray-800);
             margin-bottom: 8px;
         }
 
-        .stat-icon.total {
-            background: #8b4513;
+        .empty-state p {
+            color: var(--gray-500);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+        }
+
+        .pagination a,
+        .pagination span {
+            padding: 10px 16px;
+            border: 1px solid var(--gray-200);
+            text-decoration: none;
+            color: var(--gray-600);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .pagination a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination .current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination .disabled {
+            color: var(--gray-300);
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+                padding: 0 16px;
+            }
+
+            .user-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .main-container {
+                padding: 20px 16px;
+            }
+
+            .page-header {
+                flex-direction: column;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .page-subtitle {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+            }
+
             .orders-table {
                 font-size: 12px;
             }
@@ -440,37 +782,65 @@
                 padding: 12px 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sidebar-toggle {
+                top: 16px;
+                left: 16px;
             }
 
-            .main-content {
-                padding: 20px 16px;
+            /* Table scroll on mobile */
+            .table-wrapper {
+                overflow-x: auto;
             }
+        }
 
-            .page-title {
-                font-size: 28px;
-            }
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Sidebar functionality
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarClose = document.getElementById('sidebarClose');
             const body = document.body;
 
-            function toggleSidebar() {
-                sidebar.classList.toggle('open');
-                sidebarOverlay.classList.toggle('show');
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('show');
+                sidebarToggle.style.opacity = '0';
+                sidebarToggle.style.visibility = 'hidden';
                 if (window.innerWidth > 768) {
-                    body.classList.toggle('sidebar-open');
+                    body.classList.add('sidebar-open');
                 }
             }
 
-            sidebarToggle.addEventListener('click', toggleSidebar);
-            sidebarOverlay.addEventListener('click', toggleSidebar);
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('show');
+                sidebarToggle.style.opacity = '1';
+                sidebarToggle.style.visibility = 'visible';
+                body.classList.remove('sidebar-open');
+            }
+
+            if (sidebarToggle) sidebarToggle.addEventListener('click', openSidebar);
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
         });
     </script>
 </head>
@@ -481,30 +851,44 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-title">BookHaven</div>
-            <div class="sidebar-subtitle">Admin Panel</div>
+            <div class="sidebar-brand">
+                <div class="sidebar-title"><i class="fas fa-book-open"></i> BookHaven</div>
+                <div class="sidebar-subtitle">Admin Control Panel</div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <nav class="sidebar-menu">
-            <a href="{{ route('admin.dashboard') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
-                <span>Dashboard</span>
-            </a>
-            <a href="{{ route('admin.user.index') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-users"></i></span>
-                <span>Kelola Pengguna</span>
-            </a>
-            <a href="{{ route('admin.buku.index') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-book"></i></span>
-                <span>Kelola Buku</span>
-            </a>
-            <a href="{{ route('admin.kategori.index') }}" class="menu-item">
-                <span class="menu-icon"><i class="fas fa-tags"></i></span>
-                <span>Kelola Kategori</span>
-            </a>
-            <a href="{{ route('admin.pesanan.index') }}" class="menu-item active">
-                <span class="menu-icon"><i class="fas fa-clipboard-list"></i></span>
-                <span>Kelola Pesanan</span>
-            </a>
+            <div class="menu-section">
+                <div class="menu-section-title">Menu Utama</div>
+                <a href="{{ route('admin.dashboard') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-th-large"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Manajemen</div>
+                <a href="{{ route('admin.user.index') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-users"></i></span>
+                    <span class="menu-text">Kelola Pengguna</span>
+                </a>
+                <a href="{{ route('admin.buku.index') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-book"></i></span>
+                    <span class="menu-text">Kelola Buku</span>
+                </a>
+                <a href="{{ route('admin.kategori.index') }}" class="menu-item">
+                    <span class="menu-icon"><i class="fas fa-folder"></i></span>
+                    <span class="menu-text">Kelola Kategori</span>
+                </a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Transaksi</div>
+                <a href="{{ route('admin.pesanan.index') }}" class="menu-item active">
+                    <span class="menu-icon"><i class="fas fa-shopping-bag"></i></span>
+                    <span class="menu-text">Kelola Pesanan</span>
+                </a>
+            </div>
         </nav>
     </div>
 
@@ -514,77 +898,113 @@
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <div class="logo">BookHaven Admin</div>
+            <div class="logo">
+                <i class="fas fa-book-reader"></i>
+                BookHaven Admin
+            </div>
             <div class="user-menu">
-                <span class="welcome-text">Selamat datang, {{ Auth::user()->Nama_Lengkap ?? 'Admin' }}</span>
-                <span class="role-badge">{{ Auth::user()->Role ?? 'Admin' }}</span>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(Auth::user()->Nama_Lengkap ?? 'A', 0, 1)) }}
+                    </div>
+                    <div class="user-details">
+                        <span class="welcome-text">{{ Auth::user()->Nama_Lengkap ?? 'Admin' }}</span>
+                        <span class="role-badge">{{ Auth::user()->Role ?? 'Admin' }}</span>
+                    </div>
+                </div>
                 <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                     @csrf
-                    <button type="submit" class="logout-btn" style="background: none; border: none; cursor: pointer;">Logout</button>
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Keluar
+                    </button>
                 </form>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
-            <h1 class="page-title">Kelola Pesanan</h1>
+    <main class="main-container">
+        @if(session('success'))
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                {{ session('success') }}
+            </div>
+        @endif
 
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    {{ session('success') }}
-                </div>
-            @endif
+        @if(session('error'))
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ session('error') }}
+            </div>
+        @endif
 
-            @if(session('error'))
-                <div class="alert alert-error">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            <!-- Statistics -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon total">
-                        <i class="fas fa-shopping-cart"></i>
+        <div class="page-header">
+            <div class="page-header-info">
+                <h1 class="page-title">
+                    <div class="page-title-icon">
+                        <i class="fas fa-shopping-bag"></i>
                     </div>
+                    Kelola Pesanan
+                </h1>
+                <p class="page-subtitle">Kelola dan pantau semua pesanan di BookHaven</p>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
                     <div class="stat-value">{{ $pesanan->count() }}</div>
                     <div class="stat-label">Total Pesanan</div>
                 </div>
+            </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
                     <div class="stat-value">{{ $pesanan->whereIn('Status', ['Pending', 'Menunggu Konfirmasi'])->count() }}</div>
                     <div class="stat-label">Menunggu Konfirmasi</div>
                 </div>
+            </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon processing">
-                        <i class="fas fa-cogs"></i>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon processing">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="stat-content">
                     <div class="stat-value">{{ $pesanan->where('Status', 'Diproses')->count() }}</div>
                     <div class="stat-label">Sedang Diproses</div>
                 </div>
+            </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon success">
-                        <i class="fas fa-check"></i>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
                     <div class="stat-value">{{ $pesanan->where('Status', 'Selesai')->count() }}</div>
                     <div class="stat-label">Selesai</div>
                 </div>
             </div>
+        </div>
 
-            <!-- Orders Table -->
-            <div class="orders-container">
-                <div class="table-header">
-                    <h2 class="table-title">Daftar Pesanan</h2>
-                </div>
+        <!-- Orders Table -->
+        <div class="orders-container">
+            <div class="table-header">
+                <h2 class="table-title">
+                    <i class="fas fa-list"></i>
+                    Daftar Pesanan
+                </h2>
+            </div>
 
-                @if($pesanan->count() > 0)
+            @if($pesanan->count() > 0)
+                <div class="table-wrapper">
                     <table class="orders-table">
                         <thead>
                             <tr>
@@ -601,51 +1021,80 @@
                             @foreach($pesanan as $order)
                                 <tr>
                                     <td>
-                                        <strong>#{{ str_pad($order->id_transaksi, 6, '0', STR_PAD_LEFT) }}</strong>
+                                        <span class="order-id">#{{ str_pad($order->id_transaksi, 6, '0', STR_PAD_LEFT) }}</span>
                                     </td>
                                     <td>
-                                        <div>
-                                            <div style="font-weight: 600;">{{ $order->nama_customer }}</div>
-                                            <div style="font-size: 12px; color: #78716c;">{{ $order->Email }}</div>
+                                        <div class="customer-info">
+                                            <span class="customer-name">{{ $order->nama_customer }}</span>
+                                            <span class="customer-email">{{ $order->Email }}</span>
                                         </div>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($order->Tanggal_Transaksi)->format('d M Y, H:i') }}</td>
-                                    <td><strong>Rp {{ number_format($order->Total_harga, 0, ',', '.') }}</strong></td>
+                                    <td>
+                                        <span class="order-total">Rp {{ number_format($order->Total_harga, 0, ',', '.') }}</span>
+                                    </td>
                                     <td>
                                         @if($order->Status_Pembayaran == 'Menunggu')
-                                            <span class="status-badge status-pending">Menunggu</span>
+                                            <span class="status-badge status-pending">
+                                                <i class="fas fa-clock"></i>
+                                                Menunggu
+                                            </span>
                                         @elseif($order->Status_Pembayaran == 'Menunggu Verifikasi')
                                             <span class="status-badge status-pending">
+                                                <i class="fas fa-hourglass-half"></i>
                                                 Menunggu Verifikasi
                                                 @if($order->Bukti_Pembayaran)
-                                                    <i class="fas fa-image" style="margin-left: 4px;" title="Ada bukti pembayaran"></i>
+                                                    <i class="fas fa-image" title="Ada bukti pembayaran"></i>
                                                 @endif
                                             </span>
                                         @elseif($order->Status_Pembayaran == 'Berhasil')
-                                            <span class="status-badge status-success">Berhasil</span>
+                                            <span class="status-badge status-success">
+                                                <i class="fas fa-check"></i>
+                                                Berhasil
+                                            </span>
                                         @else
-                                            <span class="status-badge status-rejected">Gagal</span>
+                                            <span class="status-badge status-rejected">
+                                                <i class="fas fa-times"></i>
+                                                Gagal
+                                            </span>
                                         @endif
                                     </td>
                                     <td>
                                         @if($order->Status == 'Pending')
-                                            <span class="status-badge status-pending">Pending</span>
+                                            <span class="status-badge status-pending">
+                                                <i class="fas fa-clock"></i>
+                                                Pending
+                                            </span>
                                         @elseif($order->Status == 'Menunggu Konfirmasi')
-                                            <span class="status-badge status-pending">Menunggu Konfirmasi</span>
+                                            <span class="status-badge status-pending">
+                                                <i class="fas fa-hourglass-half"></i>
+                                                Menunggu Konfirmasi
+                                            </span>
                                         @elseif($order->Status == 'Diproses')
-                                            <span class="status-badge status-processing">Diproses</span>
+                                            <span class="status-badge status-processing">
+                                                <i class="fas fa-cog fa-spin"></i>
+                                                Diproses
+                                            </span>
                                         @elseif($order->Status == 'Dikirim')
-                                            <span class="status-badge status-shipped">Dikirim</span>
+                                            <span class="status-badge status-shipped">
+                                                <i class="fas fa-truck"></i>
+                                                Dikirim
+                                            </span>
                                         @elseif($order->Status == 'Selesai')
-                                            <span class="status-badge status-completed">Selesai</span>
+                                            <span class="status-badge status-completed">
+                                                <i class="fas fa-check-circle"></i>
+                                                Selesai
+                                            </span>
                                         @else
-                                            <span class="status-badge status-rejected">Ditolak</span>
+                                            <span class="status-badge status-rejected">
+                                                <i class="fas fa-ban"></i>
+                                                Ditolak
+                                            </span>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.pesanan.show', $order->id_transaksi) }}"
-                                           class="btn btn-primary btn-small">
-                                            <i class="fas fa-eye" style="margin-right: 4px;"></i>
+                                        <a href="{{ route('admin.pesanan.show', $order->id_transaksi) }}" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
                                             Detail
                                         </a>
                                     </td>
@@ -653,16 +1102,45 @@
                             @endforeach
                         </tbody>
                     </table>
-                @else
-                    <div class="empty-state">
-                        <div class="empty-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3 class="empty-title">Belum Ada Pesanan</h3>
-                        <p class="empty-description">Pesanan akan muncul di sini setelah customer melakukan pembelian.</p>
-                    </div>
+                </div>
+
+                {{-- Pagination --}}
+                @if ($pesanan->hasPages())
+                    <nav class="pagination">
+                        {{-- Previous --}}
+                        @if ($pesanan->onFirstPage())
+                            <span class="disabled"><i class="fas fa-chevron-left"></i></span>
+                        @else
+                            <a href="{{ $pesanan->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
+                        @endif
+
+                        {{-- Page Numbers --}}
+                        @foreach ($pesanan->getUrlRange(1, $pesanan->lastPage()) as $page => $url)
+                            @if ($page == $pesanan->currentPage())
+                                <span class="current">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        {{-- Next --}}
+                        @if ($pesanan->hasMorePages())
+                            <a href="{{ $pesanan->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
+                        @else
+                            <span class="disabled"><i class="fas fa-chevron-right"></i></span>
+                        @endif
+                    </nav>
                 @endif
-            </div>
+            @else
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Belum Ada Pesanan</h3>
+                    <p>Pesanan akan muncul di sini setelah customer melakukan pembelian.</p>
+                </div>
+            @endif
+        </div>
     </main>
 </body>
 </html>
