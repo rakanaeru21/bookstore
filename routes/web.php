@@ -97,5 +97,9 @@ Route::middleware(['auth'])->group(function () {
     // User routes
     Route::middleware(['role:User'])->group(function () {
         Route::get('/user/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
+
+        // User orders routes
+        Route::get('/user/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('user.orders');
+        Route::get('/user/orders/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('user.orders.show');
     });
 });

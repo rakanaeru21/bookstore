@@ -1404,6 +1404,7 @@
         .fab-menu.show .fab-item:nth-child(1) { animation-delay: 0.05s; }
         .fab-menu.show .fab-item:nth-child(2) { animation-delay: 0.1s; }
         .fab-menu.show .fab-item:nth-child(3) { animation-delay: 0.15s; }
+        .fab-menu.show .fab-item:nth-child(4) { animation-delay: 0.2s; }
 
         @keyframes fabItemIn {
             from {
@@ -1477,6 +1478,16 @@
 
         .fab-cart .fab-item-info {
             color: #78350f;
+            font-weight: 600;
+        }
+
+        .fab-orders .fab-item-icon {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .fab-orders .fab-item-info {
+            color: #d97706;
             font-weight: 600;
         }
 
@@ -1941,10 +1952,28 @@
         foreach($cartFloat as $item) {
             $cartFloatTotal += $item['Harga'] * $item['qty'];
         }
+
+        // Get user orders count
+        $userOrders = \Illuminate\Support\Facades\DB::table('t_transaksi')
+            ->where('id_user', $user->id_user)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $ordersCount = $userOrders->count();
+        $pendingOrdersCount = $userOrders->where('Status_Pembayaran', 'Menunggu')->count();
     @endphp
     <div class="floating-action-container">
         <!-- FAB Menu Items -->
         <div class="fab-menu" id="fabMenu">
+            <a href="{{ route('user.orders') }}" class="fab-item fab-orders">
+                <div class="fab-item-icon">
+                    <i class="fas fa-receipt"></i>
+                    @if($pendingOrdersCount > 0)
+                        <span class="fab-item-badge">{{ $pendingOrdersCount }}</span>
+                    @endif
+                </div>
+                <span class="fab-item-label">Pesanan Saya</span>
+                <span class="fab-item-info">{{ $ordersCount }} pesanan</span>
+            </a>
             <a href="{{ route('cart.show') }}" class="fab-item fab-cart">
                 <div class="fab-item-icon">
                     <i class="fas fa-shopping-cart"></i>
@@ -1970,8 +1999,8 @@
         <button class="floating-action-btn" id="fabToggle" onclick="toggleFabMenu()">
             <i class="fas fa-plus fab-icon-main"></i>
             <i class="fas fa-times fab-icon-close"></i>
-            @if($cartFloatCount > 0)
-                <span class="fab-main-badge">{{ $cartFloatCount }}</span>
+            @if($cartFloatCount > 0 || $pendingOrdersCount > 0)
+                <span class="fab-main-badge">{{ $cartFloatCount + $pendingOrdersCount }}</span>
             @endif
         </button>
     </div>
