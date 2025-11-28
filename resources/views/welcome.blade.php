@@ -689,6 +689,321 @@
                 flex-direction: column;
             }
         }
+
+        /* About Store Section */
+        .about-store {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f5f1e8 0%, #faf9f7 100%);
+        }
+
+        .about-store-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-store-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #2c2416;
+            margin-bottom: 16px;
+        }
+
+        .about-store-header p {
+            color: #6b5d4f;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-store-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-store-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #2c2416;
+            margin-bottom: 20px;
+        }
+
+        .about-store-info p {
+            color: #6b5d4f;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .store-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(139, 69, 19, 0.15);
+        }
+
+        .feature-item i {
+            color: #8b4513;
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .feature-item span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c2416;
+        }
+
+        .store-contact-info {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .store-contact-info h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #2c2416;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .store-contact-info h4 i {
+            color: #8b4513;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: #6b5d4f;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item i {
+            color: #8b4513;
+            width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .store-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .store-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .store-stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(139, 69, 19, 0.15);
+            border-color: rgba(139, 69, 19, 0.2);
+        }
+
+        .store-stat-card.highlight {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            border-color: #8b4513;
+        }
+
+        .store-stat-card.highlight .stat-icon,
+        .store-stat-card.highlight .stat-value,
+        .store-stat-card.highlight .stat-label {
+            color: white;
+        }
+
+        .store-stat-card.highlight .stat-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #8b4513;
+            font-size: 24px;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #8b4513;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #8a7a6a;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .about-store-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-store {
+                padding: 60px 0;
+            }
+
+            .about-store-header h2 {
+                font-size: 32px;
+            }
+
+            .store-features {
+                grid-template-columns: 1fr;
+            }
+
+            .store-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .store-stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            color: white;
+            font-size: 28px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulse-wa 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-btn:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-10px);
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%) translateX(0);
+            background: #2c2416;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent transparent #2c2416;
+        }
+
+        @keyframes pulse-wa {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .whatsapp-btn {
+                width: 54px;
+                height: 54px;
+                font-size: 24px;
+            }
+
+            .whatsapp-tooltip {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -802,6 +1117,100 @@
         </div>
     </section>
 
+    <!-- About Store Section -->
+    <section class="about-store" id="about">
+        <div class="container">
+            <div class="about-store-header">
+                <div class="section-subtitle">
+                    <i class="fas fa-store"></i>
+                    Tentang Kami
+                </div>
+                <h2>Tentang Toko Kami</h2>
+                <p>BookHaven - Surga Literasi Anda sejak 2020</p>
+            </div>
+            <div class="about-store-content">
+                <div class="about-store-info">
+                    <h3>Kenapa Memilih BookHaven?</h3>
+                    <p>
+                        <strong>BookHaven</strong> adalah toko buku online terpercaya yang menyediakan berbagai koleksi buku berkualitas
+                        dari berbagai genre dan kategori. Kami berkomitmen untuk menjadi mitra literasi terbaik bagi para pembaca di Indonesia.
+                    </p>
+                    <p>
+                        Didirikan dengan visi untuk membuat buku lebih mudah diakses oleh semua orang, kami terus berinovasi
+                        untuk memberikan pengalaman berbelanja buku yang menyenangkan dan memuaskan.
+                    </p>
+                    <div class="store-features">
+                        <div class="feature-item">
+                            <i class="fas fa-truck-fast"></i>
+                            <span>Pengiriman Cepat</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Produk Original</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-headset"></i>
+                            <span>Layanan 24/7</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-undo"></i>
+                            <span>Garansi Pengembalian</span>
+                        </div>
+                    </div>
+                    <div class="store-contact-info" id="contact">
+                        <h4><i class="fas fa-address-card"></i> Hubungi Kami</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Jl. Literasi No. 123, Jakarta Selatan, 12345</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+62 21 1234 5678</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@bookhaven.id</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Senin - Jumat: 08:00 - 21:00 WIB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-stats-grid">
+                    <div class="store-stat-card highlight">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-value">10K+</div>
+                        <div class="stat-label">Koleksi Buku</div>
+                    </div>
+                    <div class="store-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value">5K+</div>
+                        <div class="stat-label">Pelanggan Setia</div>
+                    </div>
+                    <div class="store-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        <div class="stat-value">100+</div>
+                        <div class="stat-label">Kategori Buku</div>
+                    </div>
+                    <div class="store-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Rating Pelanggan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta">
         <div class="container cta-content">
@@ -810,6 +1219,14 @@
             <a href="/register" class="btn btn-white btn-large"><i class="fas fa-rocket"></i> Mulai Sekarang</a>
         </div>
     </section>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/6281280970700?text=Halo%20BookHaven%2C%20saya%20ingin%20bertanya%20tentang%20buku" target="_blank" class="whatsapp-btn" title="Hubungi Admin via WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">Chat dengan Admin</span>
+        </a>
+    </div>
 
     <!-- Footer -->
     <footer>
